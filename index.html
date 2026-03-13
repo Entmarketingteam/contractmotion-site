@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ContractMotion — Enterprise Contract Acquisition for Grid Infrastructure EPCs</title>
+  <meta name="description" content="Signal-driven contract acquisition for mid-tier power and grid infrastructure contractors. 2 signed enterprise contracts in 180 days, guaranteed." />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">ContractMotion</a>
+      <ul class="nav-links">
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#signal-stack">The Signal Stack</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#guarantee">The Guarantee</a></li>
+      </ul>
+      <a href="#cta" class="btn btn-primary btn-sm nav-cta">Get Signal Audit</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- SECTION 1: HERO -->
+  <section id="hero">
+    <div class="hero-bg">
+      <div class="queue-viz" aria-label="PJM Interconnection Queue visualization">
+        <div class="queue-header">
+          <span class="queue-label">PJM Interconnection Queue — Live</span>
+          <span class="queue-meta">NERC Region: PJM MAAC · Updated: <span id="queueTime"></span></span>
+        </div>
+        <div class="queue-table-wrap">
+          <table class="queue-table">
+            <thead>
+              <tr>
+                <th>Queue #</th>
+                <th>Project</th>
+                <th>State</th>
+                <th>kV</th>
+                <th>MW</th>
+                <th>Type</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>PJM-2024-1847</td><td>Loudoun 500kV Sub Expansion</td><td>VA</td><td>500</td><td>1,200</td><td>Substation EPC</td><td><span class="dot green"></span> Active</td></tr>
+              <tr><td>PJM-2024-1851</td><td>Northern VA Transmission Corridor</td><td>VA</td><td>230</td><td>680</td><td>T-Line</td><td><span class="dot green"></span> Active</td></tr>
+              <tr><td>PJM-2024-1863</td><td>Frederick Co. Distribution Upgrade</td><td>MD</td><td>138</td><td>320</td><td>Distribution</td><td><span class="dot yellow"></span> Pending</td></tr>
+              <tr><td>PJM-2024-1872</td><td>Wheeling 345kV Rebuild</td><td>WV</td><td>345</td><td>890</td><td>Substation EPC</td><td><span class="dot green"></span> Active</td></tr>
+              <tr><td>PJM-2024-1879</td><td>PSEG Linden Sub Replacement</td><td>NJ</td><td>230</td><td>540</td><td>Substation EPC</td><td><span class="dot red"></span> Withdrawn</td></tr>
+              <tr><td>PJM-2024-1891</td><td>AEP Ohio Transmission Extension</td><td>OH</td><td>345</td><td>1,050</td><td>T-Line</td><td><span class="dot yellow"></span> Pending</td></tr>
+              <tr><td>PJM-2024-1904</td><td>Duquesne Light 138kV Upgrade</td><td>PA</td><td>138</td><td>290</td><td>Distribution</td><td><span class="dot green"></span> Active</td></tr>
+              <tr><td>PJM-2024-1917</td><td>ComEd Chicago Metro Backbone</td><td>IL</td><td>500</td><td>2,100</td><td>T-Line</td><td><span class="dot green"></span> Active</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="queue-footer">
+          <span class="dot green"></span> Active &nbsp;
+          <span class="dot yellow"></span> Pending &nbsp;
+          <span class="dot red"></span> Withdrawn
+        </div>
+      </div>
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="container hero-content">
+      <div class="hero-text">
+        <div class="hero-eyebrow">CONTRACT ACQUISITION SYSTEM</div>
+        <h1>By the time the RFP drops, the preferred contractor has already been identified.</h1>
+        <p class="hero-sub">ECAS is a contract acquisition system for mid-tier power and grid infrastructure contractors. We monitor FERC dockets, PJM and ERCOT interconnection queues, utility rate cases, and PPA announcements — and position you 60 to 90 days before formal procurement opens. Guarantee: 2 signed enterprise contracts in 180 days or we continue at no charge.</p>
+        <div class="hero-ctas">
+          <a href="#cta" class="btn btn-primary">Get Your Free Signal Audit</a>
+          <a href="#how-it-works" class="btn btn-ghost">See How It Works</a>
+        </div>
+        <p class="hero-note">We'll map 5 live projects in your target market you don't know about. No pitch. No obligation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: THE PROBLEM -->
+  <section id="problem" class="section">
+    <div class="container">
+      <div class="problem-grid">
+        <div class="problem-copy">
+          <div class="section-eyebrow">THE PROBLEM</div>
+          <h2>The pre-bid window closes before the RFP opens.</h2>
+          <p>Utility and grid infrastructure procurement does not begin with the formal bid process. It begins months earlier — when utility procurement teams identify candidate contractors through informal scoping, site visits, and pre-qualification conversations.</p>
+          <p>By the time an RFP releases, those conversations have already happened. The shortlist is informal, unlisted, and already set. The contractors who waited for the RFP are competing for positions that were effectively awarded weeks before the bid deadline.</p>
+          <p>The signals that predict this window are all public record. FERC dockets. State PUC rate case filings. PJM and ERCOT interconnection queue additions and withdrawals. PPA execution announcements. Utility earnings call capex guidance. Land permit activity near planned transmission corridors.</p>
+          <p>Most mid-tier EPCs and substation contractors do not read them. Their BD process is reactive: respond to RFPs, attend industry conferences, maintain relationships with known contacts. That works when there is no information gap. There is an information gap.</p>
+          <p>The contractors capturing the most high-value grid infrastructure work in 2025 and 2026 are not winning on price. They are winning because they were in the room before the room was formally opened.</p>
+        </div>
+        <div class="problem-visual">
+          <div class="timeline-comparison">
+            <div class="timeline-header">Contract Award Timeline</div>
+            <div class="timeline-tracks">
+              <div class="track track-b">
+                <div class="track-label">
+                  <span class="track-name track-name-b">Contractor B</span>
+                  <span class="track-desc">Signal-positioned</span>
+                </div>
+                <div class="track-bar-wrap">
+                  <div class="track-bar bar-b">
+                    <div class="track-event" style="left:0%">
+                      <div class="event-dot dot-b"></div>
+                      <div class="event-label">Signal detected</div>
+                    </div>
+                    <div class="track-event" style="left:35%">
+                      <div class="event-dot dot-b"></div>
+                      <div class="event-label">Procurement contact made</div>
+                    </div>
+                    <div class="track-event" style="left:65%">
+                      <div class="event-dot dot-b"></div>
+                      <div class="event-label">Informal shortlist</div>
+                    </div>
+                    <div class="track-event" style="left:100%">
+                      <div class="event-dot dot-rfp"></div>
+                      <div class="event-label">RFP releases</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="track-outcome outcome-b">On shortlist at RFP release</div>
+              </div>
+              <div class="track track-a">
+                <div class="track-label">
+                  <span class="track-name track-name-a">Contractor A</span>
+                  <span class="track-desc">Reactive BD</span>
+                </div>
+                <div class="track-bar-wrap">
+                  <div class="track-bar bar-a">
+                    <div class="track-event" style="left:100%">
+                      <div class="event-dot dot-a"></div>
+                      <div class="event-label">Sees RFP, begins positioning</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="track-outcome outcome-a">Competing for a pre-set shortlist</div>
+              </div>
+            </div>
+            <div class="timeline-axis">
+              <span>T-90 days</span>
+              <span>T-60 days</span>
+              <span>T-30 days</span>
+              <span>RFP release</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: HOW IT WORKS -->
+  <section id="how-it-works" class="section section-dark">
+    <div class="container">
+      <div class="section-eyebrow">METHODOLOGY</div>
+      <h2>The Signal Engine. Three steps.</h2>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <div class="step-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="3" fill="#00FF94"/><circle cx="14" cy="14" r="7" stroke="#00FF94" stroke-width="1.5" opacity="0.5"/><circle cx="14" cy="14" r="11" stroke="#00FF94" stroke-width="1" opacity="0.25"/><line x1="14" y1="3" x2="14" y2="0" stroke="#00FF94" stroke-width="1.5"/></svg>
+          </div>
+          <h3>Signal Monitoring</h3>
+          <p>ECAS runs continuous monitoring across federal and state regulatory databases, interconnection queue systems, land and permit records, utility earnings releases, and PPA announcement feeds. Every data source is public. The volume and cross-referencing of signals is not.</p>
+          <p>When a FERC filing references a transmission project in a specific geographic zone — and the state PUC has an active rate case in that zone — and PJM queue data shows interconnection requests at the relevant voltage class — that is a signal cluster. It means a construction procurement event is 60 to 120 days out.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <div class="step-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="11" y="1" width="6" height="5" rx="1" stroke="#00FF94" stroke-width="1.5"/><rect x="1" y="22" width="6" height="5" rx="1" stroke="#00FF94" stroke-width="1.5"/><rect x="21" y="22" width="6" height="5" rx="1" stroke="#00FF94" stroke-width="1.5"/><line x1="14" y1="6" x2="14" y2="17" stroke="#00FF94" stroke-width="1.5"/><line x1="14" y1="17" x2="4" y2="22" stroke="#00FF94" stroke-width="1.5"/><line x1="14" y1="17" x2="24" y2="22" stroke="#00FF94" stroke-width="1.5"/></svg>
+          </div>
+          <h3>Contact Mapping</h3>
+          <p>Once a signal cluster identifies a qualifying project, ECAS maps the procurement decision chain. Utility project development leads. Independent transmission developers. Co-op engineering departments. We identify the specific individuals responsible for contractor selection, their procurement history, and the contractor relationships they have and have not formed.</p>
+          <p>This is not a generic list. It is a procurement map for a specific project in a specific location on a specific timeline.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <div class="step-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><line x1="4" y1="24" x2="24" y2="4" stroke="#00FF94" stroke-width="1.5"/><circle cx="18" cy="10" r="3" fill="#00FF94"/><line x1="18" y1="7" x2="18" y2="2" stroke="#00FF94" stroke-width="1"/><line x1="21" y1="10" x2="26" y2="10" stroke="#00FF94" stroke-width="1"/><polyline points="4,18 10,12 16,16 22,8" stroke="#00FF94" stroke-width="1.5" fill="none" opacity="0.4"/></svg>
+          </div>
+          <h3>Pre-RFP Positioning</h3>
+          <p>ECAS positions the client contractor into the project's informal awareness window through technically grounded outreach — referencing specific project parameters, demonstrating relevant prior work at comparable voltage and capacity, and initiating conversations before the procurement team begins formal scoping.</p>
+          <p>Positioning at this stage is not sales. It is preconstruction relationship establishment. That is what gets a contractor onto the informal shortlist before the RFP releases.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: SIGNAL STACK -->
+  <section id="signal-stack" class="section">
+    <div class="container">
+      <div class="section-eyebrow">DATA SOURCES</div>
+      <h2>What ECAS Monitors</h2>
+      <p class="section-sub">All public record. Continuously indexed.</p>
+      <div class="table-wrap">
+        <table class="signal-table">
+          <thead>
+            <tr>
+              <th>Signal Source</th>
+              <th>What It Indicates</th>
+              <th>Lead Time to RFP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="signal-source">FERC docket filings</td>
+              <td>Federal project approval, transmission line siting, rate base additions</td>
+              <td class="lead-time">90–180 days</td>
+            </tr>
+            <tr>
+              <td class="signal-source">PJM interconnection queue</td>
+              <td>New generation + storage projects requiring transmission upgrades</td>
+              <td class="lead-time">60–120 days</td>
+            </tr>
+            <tr>
+              <td class="signal-source">ERCOT interconnection queue</td>
+              <td>Texas-market new project activity, T&amp;D upgrade requirements</td>
+              <td class="lead-time">60–120 days</td>
+            </tr>
+            <tr>
+              <td class="signal-source">MISO interconnection queue</td>
+              <td>Midwest and Gulf Coast transmission procurement signals</td>
+              <td class="lead-time">60–120 days</td>
+            </tr>
+            <tr>
+              <td class="signal-source">State PUC rate cases</td>
+              <td>Utility capital program approvals, distribution upgrade authorizations</td>
+              <td class="lead-time">90–150 days</td>
+            </tr>
+            <tr>
+              <td class="signal-source">IRP filings</td>
+              <td>Long-range utility capacity plans indicating 3–7 year capex roadmap</td>
+              <td class="lead-time">12–36 months</td>
+            </tr>
+            <tr>
+              <td class="signal-source">PPA announcements</td>
+              <td>Project development execution signaling imminent EPC procurement</td>
+              <td class="lead-time">45–90 days</td>
+            </tr>
+            <tr>
+              <td class="signal-source">Utility earnings call transcripts</td>
+              <td>Capex guidance and regional investment prioritization</td>
+              <td class="lead-time">60–120 days</td>
+            </tr>
+            <tr>
+              <td class="signal-source">Land permits and easements</td>
+              <td>Transmission corridor development activity</td>
+              <td class="lead-time">60–90 days</td>
+            </tr>
+            <tr>
+              <td class="signal-source">Substation permit applications</td>
+              <td>Local-level construction procurement signal</td>
+              <td class="lead-time">30–60 days</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">When multiple signals fire in the same geographic zone and voltage class within a 60-day window, ECAS classifies the cluster as high-priority. That is when contractor positioning begins.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 5: RESULTS -->
+  <section id="results" class="section section-dark">
+    <div class="container">
+      <div class="section-eyebrow">RESULTS AND PROOF</div>
+      <h2>What the Signal Engine Has Found</h2>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-number">47</div>
+          <div class="metric-label">qualifying projects identified across the PJM interconnection queue in the first 90 days of client onboarding</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">14</div>
+          <div class="metric-label">substation EPC opportunities flagged in ERCOT before formal RFP release in a 6-month window</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">74 days</div>
+          <div class="metric-label">average lead time from ECAS signal identification to RFP release</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">$1.2M</div>
+          <div class="metric-label">average contract value on ECAS-positioned engagements</div>
+        </div>
+      </div>
+
+      <h3 class="signal-examples-header">Signal Examples</h3>
+      <div class="signal-examples-grid">
+        <div class="signal-card">
+          <div class="signal-geo">
+            <span class="signal-region">Virginia</span>
+            <span class="signal-quarter">Q4 2025</span>
+          </div>
+          <div class="signal-title">Dominion 230kV Transmission — Northern Virginia</div>
+          <div class="signal-chain">
+            <div class="chain-label">Signal chain</div>
+            <div class="chain-items">
+              <span class="chain-item">FERC docket — 230kV line extension, Northern VA</span>
+              <span class="chain-arrow">→</span>
+              <span class="chain-item">PJM queue — 4 interconnection requests, same corridor, 90-day window</span>
+              <span class="chain-arrow">→</span>
+              <span class="chain-item">Development lead identified</span>
+            </div>
+          </div>
+          <div class="signal-timeline">
+            <span class="timeline-label">Positioning initiated</span>
+            <span class="timeline-val">67 days before RFP release</span>
+          </div>
+          <div class="signal-outcome">Client on informal shortlist at RFP release.</div>
+        </div>
+
+        <div class="signal-card">
+          <div class="signal-geo">
+            <span class="signal-region">Texas</span>
+            <span class="signal-quarter">Q3 2025</span>
+          </div>
+          <div class="signal-title">Independent Transmission Developer — ERCOT West</div>
+          <div class="signal-chain">
+            <div class="chain-label">Signal chain</div>
+            <div class="chain-items">
+              <span class="chain-item">PPA executed — 400MW solar-plus-storage, ERCOT West Texas</span>
+              <span class="chain-arrow">→</span>
+              <span class="chain-item">Developer land easement filings — 11 days later</span>
+              <span class="chain-arrow">→</span>
+              <span class="chain-item">EPC procurement team mapped</span>
+            </div>
+          </div>
+          <div class="signal-timeline">
+            <span class="timeline-label">Positioning initiated</span>
+            <span class="timeline-val">83 days before bid window opened</span>
+          </div>
+          <div class="signal-outcome">Three competing contractors submitted proposals after the RFP dropped.</div>
+        </div>
+
+        <div class="signal-card">
+          <div class="signal-geo">
+            <span class="signal-region">Midwest</span>
+            <span class="signal-quarter">Q1 2026</span>
+          </div>
+          <div class="signal-title">Co-op Distribution Upgrade — MISO</div>
+          <div class="signal-chain">
+            <div class="chain-label">Signal chain</div>
+            <div class="chain-items">
+              <span class="chain-item">State PUC approved rate base expansion — rural co-op</span>
+              <span class="chain-arrow">→</span>
+              <span class="chain-item">IRP filing — planned distribution upgrades, two counties</span>
+              <span class="chain-arrow">→</span>
+              <span class="chain-item">Co-op engineering firm and project timeline identified</span>
+            </div>
+          </div>
+          <div class="signal-timeline">
+            <span class="timeline-label">Client in conversation</span>
+            <span class="timeline-val">55 days before RFP release</span>
+          </div>
+          <div class="signal-outcome">Client in conversation with co-op's project development lead 55 days before the RFP released.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: GUARANTEE -->
+  <section id="guarantee" class="section section-guarantee">
+    <div class="container">
+      <div class="guarantee-block">
+        <div class="section-eyebrow eyebrow-dark">THE GUARANTEE</div>
+        <h2 class="guarantee-headline">2 signed enterprise contracts in 180 days.<br>Guaranteed. Or we continue working at no charge.</h2>
+        <p class="guarantee-body">ECAS guarantees 2 signed enterprise contracts, each valued at $500,000 or greater, within 180 days of client onboarding — or ECAS continues working at no additional charge until the guarantee is fulfilled.</p>
+        <p class="guarantee-define"><strong>What "signed contract" means:</strong> a fully executed agreement with an enterprise counterparty (utility, independent power developer, transmission developer, or large-scale EPC prime) with a defined scope of work and minimum contract value of $500,000.</p>
+
+        <div class="sla-block">
+          <div class="sla-header">SLA Requirements — Guarantee Eligibility</div>
+          <ol class="sla-list">
+            <li>Client operates as a licensed electrical EPC, substation contractor, or T&amp;D subcontractor with demonstrated project history at the $500K+ contract value level.</li>
+            <li>Client has operational capacity to execute at least 2 simultaneous projects of the guaranteed value range during the 180-day window.</li>
+            <li>Client provides timely response to ECAS positioning prompts — specifically, initial outreach responses to identified procurement contacts within 48 hours of ECAS notification.</li>
+            <li>Client's target market geography includes at least one of the following active queue regions: PJM, ERCOT, MISO, WECC, or SPP.</li>
+            <li>Client does not have an existing relationship with the identified procurement contact that would constitute a conflict of positioning.</li>
+          </ol>
+        </div>
+
+        <div class="guarantee-why">
+          <p>Signal-driven positioning is not a volume game. We know which projects are coming because the data says so. The guarantee is possible because the system has enough precision to make it viable. A cold email agency cannot offer this guarantee because their method has no predictive signal. Ours does.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: ONBOARDING SEQUENCE -->
+  <section id="onboarding" class="section section-dark">
+    <div class="container">
+      <div class="section-eyebrow">PROCESS</div>
+      <h2>The Onboarding Sequence</h2>
+      <p class="section-sub">From Signal Audit to Positioned Contractor in 30 Days.</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-days">Days 1–3</div>
+            <div class="timeline-step-label">Free Signal Audit</div>
+          </div>
+          <div class="timeline-connector">
+            <div class="timeline-dot"></div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-right">
+            <p>Before any engagement, ECAS runs a no-cost signal audit on your target market. We pull current PJM and/or ERCOT queue data, identify qualifying projects by voltage class and capacity, and map 5 live procurement opportunities you are not currently positioned for. This is the starting point for every client relationship. There is no obligation attached to it.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-days">Days 4–10</div>
+            <div class="timeline-step-label">ICP and Market Scoping</div>
+          </div>
+          <div class="timeline-connector">
+            <div class="timeline-dot"></div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-right">
+            <p>If the Signal Audit confirms fit, we conduct a structured intake. We document your project history, geographic coverage, crew capacity, bonding limits, and preferred project types. We use this to calibrate which signals to prioritize and which procurement contacts to map first. This is not a questionnaire — it is a technical intake that defines the parameters of your signal monitoring profile.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-days">Days 11–20</div>
+            <div class="timeline-step-label">Signal Stack Activation</div>
+          </div>
+          <div class="timeline-connector">
+            <div class="timeline-dot"></div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-right">
+            <p>We activate continuous monitoring across all relevant data sources for your defined market and project type. Within the first 10 days of activation, we deliver an initial Signal Report — a ranked list of qualifying projects by estimated procurement timeline, voltage class, counterparty type, and confidence level based on signal cluster strength.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-days">Days 21–30</div>
+            <div class="timeline-step-label">Contact Mapping and Positioning</div>
+          </div>
+          <div class="timeline-connector">
+            <div class="timeline-dot"></div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-right">
+            <p>For the top-priority signal clusters, we build contact maps — specific individuals in the procurement chain for each identified project. We initiate positioning conversations on your behalf, referencing specific project parameters and your relevant prior work. By Day 30, you are in active conversation with procurement contacts on at least 2 qualifying projects.</p>
+          </div>
+        </div>
+        <div class="timeline-item timeline-item-ongoing">
+          <div class="timeline-left">
+            <div class="timeline-days ongoing-label">Ongoing</div>
+            <div class="timeline-step-label">Active Signal Management</div>
+          </div>
+          <div class="timeline-connector">
+            <div class="timeline-dot timeline-dot-ongoing"></div>
+          </div>
+          <div class="timeline-right">
+            <p>ECAS runs continuous signal monitoring for the duration of the engagement. New signal clusters are flagged and acted on as they appear. You receive weekly Signal Reports with updated project rankings, new contacts added to active positioning conversations, and status on all open positioning tracks. The 180-day guarantee clock runs from Day 1 of onboarding.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8: WHO THIS IS FOR -->
+  <section id="who-its-for" class="section">
+    <div class="container">
+      <div class="section-eyebrow">QUALIFICATION</div>
+      <h2>Who This Is Built For</h2>
+      <div class="fit-grid">
+        <div class="fit-col fit-good">
+          <div class="fit-header">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9l4 4 8-8" stroke="#00FF94" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            We Work Best With
+          </div>
+          <ul class="fit-list">
+            <li>Electrical EPCs, substation contractors, and T&amp;D subcontractors with $20M–$300M annual revenue</li>
+            <li>Contractors with demonstrated project history at the $500K+ contract value level in transmission, substation, or distribution</li>
+            <li>Companies with internal project execution capacity — crews, bonding, and equipment — available to take on 2 simultaneous new contracts within the 180-day window</li>
+            <li>Firms operating in or targeting PJM, ERCOT, MISO, WECC, or SPP markets</li>
+            <li>Owners, VP Operations, Directors of Preconstruction, and Project Executives who have decision-making authority on BD strategy</li>
+            <li>Contractors whose current BD process is primarily reactive (RFP response, conference networking) and who recognize the structural limitation of that approach</li>
+          </ul>
+        </div>
+        <div class="fit-col fit-bad">
+          <div class="fit-header">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><line x1="4" y1="4" x2="14" y2="14" stroke="#FF4444" stroke-width="2" stroke-linecap="round"/><line x1="14" y1="4" x2="4" y2="14" stroke="#FF4444" stroke-width="2" stroke-linecap="round"/></svg>
+            Not a Fit
+          </div>
+          <ul class="fit-list">
+            <li>Contractors with revenue below $15M or without established bonding capacity for contracts at the $500K+ level — the guarantee requires that you can close and execute what we position you for</li>
+            <li>Companies expecting a volume outreach service — ECAS does not send cold email campaigns, does not optimize LinkedIn profiles, and does not book meetings as a deliverable</li>
+            <li>Contractors without geographic coverage in active queue regions — if your target market has no signal activity in the next 180 days, we cannot fulfill the guarantee</li>
+            <li>Firms looking for general BD strategy, relationship coaching, or conference preparation — that is not what this is</li>
+            <li>Companies not willing to respond to positioning prompts within 48 hours — the pre-bid window is narrow; slow response invalidates the timing advantage</li>
+          </ul>
+        </div>
+      </div>
+      <p class="fit-note">The 2-contract guarantee is real and contractual. That is why we are selective about who we onboard. If you are not a fit, we will say so in the Signal Audit call.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 9: CTA -->
+  <section id="cta" class="section section-cta">
+    <div class="container">
+      <div class="cta-primary-block">
+        <div class="section-eyebrow">GET STARTED</div>
+        <h2>Start with the Signal Audit.</h2>
+        <p class="cta-body">A free, no-obligation review of your target market. We pull current PJM and/or ERCOT queue data, identify 5 live projects you're not positioned for, and map the procurement timeline for each. If there is signal activity in your market and your project profile fits, we'll show you exactly what we found. No pitch until you've seen the data.</p>
+        <form id="auditForm" class="audit-form" novalidate>
+          <div class="form-group">
+            <label for="company">Company Name</label>
+            <input type="text" id="company" name="company" placeholder="Your company name" required />
+          </div>
+          <div class="form-group">
+            <label for="role">Your Role</label>
+            <select id="role" name="role" required>
+              <option value="">Select your role</option>
+              <option value="owner">Owner / CEO</option>
+              <option value="vp-ops">VP Operations</option>
+              <option value="dir-preconstruction">Director of Preconstruction</option>
+              <option value="project-executive">Project Executive</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="region">Target Market Region</label>
+            <select id="region" name="region" required>
+              <option value="">Select your region</option>
+              <option value="pjm">PJM</option>
+              <option value="ercot">ERCOT</option>
+              <option value="miso">MISO</option>
+              <option value="wecc">WECC</option>
+              <option value="spp">SPP</option>
+              <option value="multiple">Multiple</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="revenue">Annual Revenue Range</label>
+            <select id="revenue" name="revenue" required>
+              <option value="">Select revenue range</option>
+              <option value="15-30m">$15–30M</option>
+              <option value="30-75m">$30–75M</option>
+              <option value="75-150m">$75–150M</option>
+              <option value="150-300m">$150–300M</option>
+              <option value="300m+">$300M+</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-large">Request Your Free Signal Audit</button>
+          <div id="formError" class="form-error" role="alert" aria-live="polite"></div>
+        </form>
+        <div id="formSuccess" class="form-success" style="display:none" role="alert" aria-live="polite">
+          <div class="success-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#00FF94" stroke-width="2"/><path d="M7 12l3 3 7-7" stroke="#00FF94" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Request received.</h3>
+          <p>Audits are completed within 3 business days. If your market has active signal clusters, you will see them. If it does not, we will tell you that too.</p>
+        </div>
+        <p class="cta-note" id="ctaNote">Audits are completed within 3 business days. If your market has active signal clusters, you will see them. If it does not, we will tell you that too.</p>
+      </div>
+
+      <div class="cta-secondary-block">
+        <h3>Not ready for the audit?</h3>
+        <p>Subscribe to the ECAS Signal Report — a weekly summary of PJM, ERCOT, and FERC activity relevant to mid-tier grid infrastructure contractors. No filler. No analysis of things that don't matter. Specific projects, specific signals, specific procurement timelines.</p>
+        <form id="subscribeForm" class="subscribe-form" novalidate>
+          <div class="subscribe-row">
+            <input type="email" id="subEmail" name="email" placeholder="Your work email" required />
+            <button type="submit" class="btn btn-ghost">Subscribe to the Signal Report</button>
+          </div>
+          <div id="subError" class="form-error" role="alert" aria-live="polite"></div>
+        </form>
+        <div id="subSuccess" class="sub-success" style="display:none" role="alert" aria-live="polite">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#00FF94" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Subscribed. Sent weekly. Unsubscribe at any time.
+        </div>
+        <p class="subscribe-note" id="subNote">Sent weekly. Unsubscribe at any time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-logo">ContractMotion</div>
+      <div class="footer-tagline">Enterprise Contract Acquisition System</div>
+      <div class="footer-links">
+        <a href="#how-it-works">How It Works</a>
+        <a href="#signal-stack">The Signal Stack</a>
+        <a href="#results">Results</a>
+        <a href="#guarantee">The Guarantee</a>
+      </div>
+      <p class="footer-copy">&copy; 2026 ContractMotion. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
