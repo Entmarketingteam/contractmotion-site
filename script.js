@@ -78,12 +78,13 @@
 
       const company = auditForm.querySelector('#company').value.trim();
       const role = auditForm.querySelector('#role').value;
-      const region = auditForm.querySelector('#region').value;
+      const regionEl = auditForm.querySelector('#region') || auditForm.querySelector('#sector') || auditForm.querySelector('#project-type') || auditForm.querySelector('#facility-type') || auditForm.querySelector('#specialty');
+      const region = regionEl ? regionEl.value : 'n/a';
       const revenue = auditForm.querySelector('#revenue').value;
 
       if (!company) { formError.textContent = 'Company name is required.'; return; }
       if (!role) { formError.textContent = 'Please select your role.'; return; }
-      if (!region) { formError.textContent = 'Please select your target market region.'; return; }
+      if (regionEl && !region) { formError.textContent = 'Please select an option.'; return; }
       if (!revenue) { formError.textContent = 'Please select your revenue range.'; return; }
 
       const btn = auditForm.querySelector('button[type="submit"]');
@@ -164,7 +165,7 @@
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll(
-      '.step-card, .metric-card, .signal-card, .timeline-item, .fit-col'
+      '.step-card, .metric-card, .signal-card, .timeline-item, .fit-col, .sector-card, .industry-card'
     ).forEach(function (el) {
       el.classList.add('fade-in');
       observer.observe(el);

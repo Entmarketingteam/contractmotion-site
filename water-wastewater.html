@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ContractMotion — Water &amp; Wastewater Infrastructure Signal Intelligence</title>
+  <meta name="description" content="Signal intelligence for water and wastewater EPCs serving IIJA and SRF-funded municipal projects. Position 6–12 months before public bid release." />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">ContractMotion</a>
+      <ul class="nav-links">
+        <li><a href="/industries">Industries</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#signal-stack">The Signal Stack</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#guarantee">The Guarantee</a></li>
+      </ul>
+      <a href="#cta" class="btn btn-primary btn-sm nav-cta">Get Signal Audit</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb-bar">
+    <div class="container">
+      <span class="breadcrumb-path"><a href="/industries">Industries</a> <span class="breadcrumb-sep">/</span> <span class="breadcrumb-current">Water &amp; Wastewater</span></span>
+    </div>
+  </div>
+
+  <!-- SECTION 1: HERO -->
+  <section id="hero">
+    <div class="hero-bg">
+      <div class="queue-viz" aria-label="IIJA/SRF Funded Projects Feed">
+        <div class="queue-header">
+          <span class="queue-label">IIJA / SRF FUNDED PROJECT FEED</span>
+          <span class="queue-meta">All states · Updated: <span id="queueTime"></span></span>
+        </div>
+        <div class="queue-table-wrap">
+          <table class="queue-table">
+            <thead>
+              <tr>
+                <th>Municipality</th>
+                <th>State</th>
+                <th>Funding</th>
+                <th>Type</th>
+                <th>Window</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Fairfax County PWA</td><td>VA</td><td>$22M CWSRF</td><td>Water Main</td><td class="lead-time">8–12 mo</td></tr>
+              <tr><td>City of San Antonio</td><td>TX</td><td>$45M DWSRF</td><td>Treatment Plant</td><td class="lead-time">10–14 mo</td></tr>
+              <tr><td>Columbus Metro Water</td><td>OH</td><td>$31M CWSRF</td><td>CSO Upgrade</td><td class="lead-time">7–11 mo</td></tr>
+              <tr><td>Charlotte Water</td><td>NC</td><td>$18M DWSRF</td><td>Distribution</td><td class="lead-time">9–13 mo</td></tr>
+              <tr><td>Norfolk Utilities</td><td>VA</td><td>$12M CWSRF</td><td>Lead Service Line</td><td class="lead-time">6–9 mo</td></tr>
+              <tr><td>Indianapolis DPW</td><td>IN</td><td>$28M WIFIA</td><td>CSO Green Infra</td><td class="lead-time">Active</td></tr>
+              <tr><td>Louisville MSD</td><td>KY</td><td>$35M CWSRF</td><td>Sewer Separation</td><td class="lead-time">8–12 mo</td></tr>
+              <tr><td>Phoenix Water Services</td><td>AZ</td><td>$52M DWSRF</td><td>Treatment Expansion</td><td class="lead-time">11–15 mo</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="queue-footer">
+          IIJA water allocation tracked: $55B total · SRF approvals indexed: all 50 states
+        </div>
+      </div>
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="container hero-content">
+      <div class="hero-text">
+        <div class="hero-eyebrow">WATER &amp; WASTEWATER INFRASTRUCTURE</div>
+        <h1>SRF loan approvals are public. Almost no contractor reads them.</h1>
+        <p class="hero-sub">The Infrastructure Investment and Jobs Act allocated $55B for water and wastewater. When a municipality gets an SRF loan approved, they have 18 months to select an EPC. ContractMotion monitors CWSRF and DWSRF approvals, EPA grants, and state PUC filings — so you know which municipalities have funded projects before they post for bid.</p>
+        <div class="hero-ctas">
+          <a href="#cta" class="btn btn-primary">Get Your Free Signal Audit</a>
+          <a href="#how-it-works" class="btn btn-ghost">See How It Works</a>
+        </div>
+        <p class="hero-note">We'll map 5 live funded water projects in your target geography you don't know about. No pitch. No obligation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: THE PROBLEM -->
+  <section id="problem" class="section">
+    <div class="container">
+      <div class="problem-grid">
+        <div class="problem-copy">
+          <div class="section-eyebrow">THE PROBLEM</div>
+          <h2>The engineering firm is selected before the contractor ever hears about the project.</h2>
+          <p>Municipal water and wastewater procurement follows a two-phase process. First, the municipality selects an engineering firm for design and procurement management. Then, months later, that firm issues a bid invitation. Most contractors first hear about a project at the second stage. By then, the engineer already has preferred contractors in mind.</p>
+          <p>When a municipality receives an SRF loan approval, they have 18 months to begin procurement. The CWSRF and DWSRF portals publish every loan approval. These are updated monthly by state agencies. The approvals disclose the municipality, the project scope, the funding amount, and the implementation timeline. All of this is public.</p>
+          <p>The window between SRF loan approval and engineering firm selection is 2–6 months. During that window, the municipality is interviewing engineers and discussing project approach. The contractors who will end up shortlisted are the ones their preferred engineers already know and trust. Getting in front of those engineers — before the project is formally underway — is what this is about.</p>
+          <p>Most mid-tier water and wastewater contractors wait for public bid advertisements. By then, the engineer has a preferred sub list built on existing relationships. They are not conducting an open evaluation. They are going through a required public procurement process with pre-formed preferences. ContractMotion reads the signals before those preferences are set.</p>
+        </div>
+        <div class="problem-visual">
+          <div class="timeline-comparison">
+            <div class="timeline-header">Water Project Contract Timeline</div>
+            <div class="timeline-tracks">
+              <div class="track track-b">
+                <div class="track-label">
+                  <span class="track-name track-name-b">Signal-Positioned EPC</span>
+                  <span class="track-desc">SRF-signal aware</span>
+                </div>
+                <div class="track-bar-wrap">
+                  <div class="track-bar bar-b">
+                    <div class="track-event" style="left:0%">
+                      <div class="event-dot dot-b"></div>
+                      <div class="event-label">SRF loan approved</div>
+                    </div>
+                    <div class="track-event" style="left:35%">
+                      <div class="event-dot dot-b"></div>
+                      <div class="event-label">Engineering firm contacted</div>
+                    </div>
+                    <div class="track-event" style="left:65%">
+                      <div class="event-dot dot-b"></div>
+                      <div class="event-label">Pre-bid relationship established</div>
+                    </div>
+                    <div class="track-event" style="left:100%">
+                      <div class="event-dot dot-rfp"></div>
+                      <div class="event-label">Public bid posted</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="track-outcome outcome-b">On preferred list at public bid</div>
+              </div>
+              <div class="track track-a">
+                <div class="track-label">
+                  <span class="track-name track-name-a">Reactive Contractor</span>
+                  <span class="track-desc">Waiting for bid ad</span>
+                </div>
+                <div class="track-bar-wrap">
+                  <div class="track-bar bar-a">
+                    <div class="track-event" style="left:100%">
+                      <div class="event-dot dot-a"></div>
+                      <div class="event-label">Sees public bid posting</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="track-outcome outcome-a">Bidding against engineer's preferred list</div>
+              </div>
+            </div>
+            <div class="timeline-axis">
+              <span>SRF approval</span>
+              <span>Eng. selection</span>
+              <span>Pre-design</span>
+              <span>Public bid</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: HOW IT WORKS -->
+  <section id="how-it-works" class="section section-dark">
+    <div class="container">
+      <div class="section-eyebrow">METHODOLOGY</div>
+      <h2>The Signal Engine. Three steps.</h2>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <div class="step-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="3" fill="#00FF94"/><circle cx="14" cy="14" r="7" stroke="#00FF94" stroke-width="1.5" opacity="0.5"/><circle cx="14" cy="14" r="11" stroke="#00FF94" stroke-width="1" opacity="0.25"/><line x1="14" y1="3" x2="14" y2="0" stroke="#00FF94" stroke-width="1.5"/></svg>
+          </div>
+          <h3>Signal Monitoring</h3>
+          <p>ContractMotion runs continuous monitoring across all 50 state CWSRF and DWSRF portals, EPA WIFIA loan announcements, EPA consent decree dockets, and state PUC water utility rate case filings. Every loan approval, grant announcement, and enforcement action that predicts infrastructure spend is indexed and categorized by geography, project type, and funding amount.</p>
+          <p>When a CWSRF loan approval fires for a specific municipality — and that municipality has an active EPA enforcement consent decree — and their engineering firm has filed a project initiation notice — that is a signal cluster. Procurement is 6–12 months out and the engineering firm is building its contractor list now.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <div class="step-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="11" y="1" width="6" height="5" rx="1" stroke="#00FF94" stroke-width="1.5"/><rect x="1" y="22" width="6" height="5" rx="1" stroke="#00FF94" stroke-width="1.5"/><rect x="21" y="22" width="6" height="5" rx="1" stroke="#00FF94" stroke-width="1.5"/><line x1="14" y1="6" x2="14" y2="17" stroke="#00FF94" stroke-width="1.5"/><line x1="14" y1="17" x2="4" y2="22" stroke="#00FF94" stroke-width="1.5"/><line x1="14" y1="17" x2="24" y2="22" stroke="#00FF94" stroke-width="1.5"/></svg>
+          </div>
+          <h3>Contact Mapping</h3>
+          <p>Once a signal cluster identifies a qualifying project, ContractMotion maps the procurement chain. The municipal utility director. The retained engineering firm and specific project manager. The procurement officer overseeing the SRF-funded project. We identify who is building the contractor shortlist and when that window closes.</p>
+          <p>This is a procurement map for a specific municipality in a specific state, on a specific SRF-funded timeline.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <div class="step-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><line x1="4" y1="24" x2="24" y2="4" stroke="#00FF94" stroke-width="1.5"/><circle cx="18" cy="10" r="3" fill="#00FF94"/><line x1="18" y1="7" x2="18" y2="2" stroke="#00FF94" stroke-width="1"/><line x1="21" y1="10" x2="26" y2="10" stroke="#00FF94" stroke-width="1"/><polyline points="4,18 10,12 16,16 22,8" stroke="#00FF94" stroke-width="1.5" fill="none" opacity="0.4"/></svg>
+          </div>
+          <h3>Pre-Bid Positioning</h3>
+          <p>ContractMotion positions your firm into the engineering firm's contractor awareness before they finalize their preferred list. Outreach references the specific project funded, your relevant prior municipal work, and your firm's capability for the project type and funding requirements.</p>
+          <p>Municipal water procurement has SRF compliance requirements that favor contractors engineers already know and trust. Pre-bid positioning is how you become one of those contractors before the bid is issued.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: SIGNAL STACK -->
+  <section id="signal-stack" class="section">
+    <div class="container">
+      <div class="section-eyebrow">DATA SOURCES</div>
+      <h2>What ContractMotion Monitors — Water &amp; Wastewater</h2>
+      <p class="section-sub">All public record. Continuously indexed across all 50 states.</p>
+      <div class="table-wrap">
+        <table class="signal-table">
+          <thead>
+            <tr>
+              <th>Signal Source</th>
+              <th>What It Indicates</th>
+              <th>Lead Time to Public Bid</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="signal-source">CWSRF state portal loan approvals</td>
+              <td>Clean water project funding confirmed — 18-month procurement clock starts</td>
+              <td class="lead-time">6–18 months</td>
+            </tr>
+            <tr>
+              <td class="signal-source">DWSRF state portal loan approvals</td>
+              <td>Drinking water project funding confirmed — treatment, distribution, lead service line</td>
+              <td class="lead-time">6–18 months</td>
+            </tr>
+            <tr>
+              <td class="signal-source">EPA WIFIA loan announcements</td>
+              <td>Large water infrastructure projects ($20M+) with committed federal funding</td>
+              <td class="lead-time">12–24 months</td>
+            </tr>
+            <tr>
+              <td class="signal-source">EPA enforcement consent decrees</td>
+              <td>Municipalities under consent = legally mandated infrastructure spend within deadline</td>
+              <td class="lead-time">6–24 months</td>
+            </tr>
+            <tr>
+              <td class="signal-source">State PUC water utility rate cases</td>
+              <td>Capital program approvals for water utility infrastructure upgrades</td>
+              <td class="lead-time">6–12 months</td>
+            </tr>
+            <tr>
+              <td class="signal-source">Lead service line replacement grants</td>
+              <td>IIJA LSLR program grants to municipalities signaling distribution system projects</td>
+              <td class="lead-time">4–10 months</td>
+            </tr>
+            <tr>
+              <td class="signal-source">Municipal bond issuances</td>
+              <td>Water infrastructure bond proceeds available for contractor procurement</td>
+              <td class="lead-time">6–12 months</td>
+            </tr>
+            <tr>
+              <td class="signal-source">Combined sewer overflow compliance plans</td>
+              <td>CSO long-term control plans requiring civil and mechanical EPC work</td>
+              <td class="lead-time">12–36 months</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">When a CWSRF or DWSRF loan approval, an EPA consent decree, and a municipal engineering notice converge on the same municipality within a 90-day window, ContractMotion classifies that cluster as high-priority. Positioning begins before the engineering firm finalizes its contractor list.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 5: RESULTS -->
+  <section id="results" class="section section-dark">
+    <div class="container">
+      <div class="section-eyebrow">RESULTS AND PROOF</div>
+      <h2>What the Signal Engine Has Found — Water &amp; Wastewater</h2>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-number">$55B</div>
+          <div class="metric-label">in IIJA water and wastewater funding being disbursed through CWSRF, DWSRF, and WIFIA programs</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">3,200+</div>
+          <div class="metric-label">active SRF loan approvals indexed across all 50 state portals in Q1 2026</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">8 months</div>
+          <div class="metric-label">average lead time from SRF loan approval to public bid advertisement</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">$680K</div>
+          <div class="metric-label">average contract value on SRF-funded water and wastewater construction projects</div>
+        </div>
+      </div>
+
+      <h3 class="signal-examples-header">Signal Examples</h3>
+      <div class="signal-examples-grid">
+        <div class="signal-card">
+          <div class="signal-geo">
+            <span class="signal-region">Virginia</span>
+            <span class="signal-quarter">Q1 2026</span>
+          </div>
+          <div class="signal-title">Fairfax County PWA — CWSRF Water Main Replacement</div>
+          <div class="signal-chain">
+            <div class="chain-label">Signal chain</div>
+            <div class="chain-items">
+              <span class="chain-item">Virginia CWSRF loan approval — $22M, Fairfax County PWA, water main</span>
+              <span class="chain-arrow">→</span>
+              <span class="chain-item">County capital program notice — 18-month implementation timeline</span>
+              <span class="chain-arrow">→</span>
+              <span class="chain-item">Engineering firm (Michael Baker Intl.) and PM identified</span>
+            </div>
+          </div>
+          <div class="signal-timeline">
+            <span class="timeline-label">Positioning initiated</span>
+            <span class="timeline-val">8 months before public bid advertisement</span>
+          </div>
+          <div class="signal-outcome">Client established relationship with project engineer before design phase completed.</div>
+        </div>
+
+        <div class="signal-card">
+          <div class="signal-geo">
+            <span class="signal-region">Ohio</span>
+            <span class="signal-quarter">Q4 2025</span>
+          </div>
+          <div class="signal-title">Columbus Metropolitan Sewer District — CSO Upgrade</div>
+          <div class="signal-chain">
+            <div class="chain-label">Signal chain</div>
+            <div class="chain-items">
+              <span class="chain-item">Ohio EPA consent decree — Columbus MSD, CSO compliance deadline</span>
+              <span class="chain-arrow">→</span>
+              <span class="chain-item">Ohio CWSRF loan approval — $31M, CSO green infrastructure program</span>
+              <span class="chain-arrow">→</span>
+              <span class="chain-item">District engineering RFQ filed — design-build team selection underway</span>
+            </div>
+          </div>
+          <div class="signal-timeline">
+            <span class="timeline-label">Client in conversation</span>
+            <span class="timeline-val">7 months before public procurement</span>
+          </div>
+          <div class="signal-outcome">Client positioned with design-build team during pre-qualification phase.</div>
+        </div>
+
+        <div class="signal-card">
+          <div class="signal-geo">
+            <span class="signal-region">Texas</span>
+            <span class="signal-quarter">Q1 2026</span>
+          </div>
+          <div class="signal-title">San Antonio Water System — DWSRF Treatment Plant</div>
+          <div class="signal-chain">
+            <div class="chain-label">Signal chain</div>
+            <div class="chain-items">
+              <span class="chain-item">Texas DWSRF loan approval — $45M, SAWS treatment plant expansion</span>
+              <span class="chain-arrow">→</span>
+              <span class="chain-item">TCEQ permit application filed — plant capacity expansion, 30-day notice</span>
+              <span class="chain-arrow">→</span>
+              <span class="chain-item">Engineering firm (Freese &amp; Nichols) and project team identified</span>
+            </div>
+          </div>
+          <div class="signal-timeline">
+            <span class="timeline-label">Positioning initiated</span>
+            <span class="timeline-val">10 months before bid advertisement</span>
+          </div>
+          <div class="signal-outcome">Client introduced to Freese &amp; Nichols project team before design schematic phase.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: GUARANTEE -->
+  <section id="guarantee" class="section section-guarantee">
+    <div class="container">
+      <div class="guarantee-block">
+        <div class="section-eyebrow eyebrow-dark">THE GUARANTEE</div>
+        <h2 class="guarantee-headline">2 signed enterprise contracts in 180 days.<br>Guaranteed. Or we continue working at no charge.</h2>
+        <p class="guarantee-body">ContractMotion guarantees 2 signed enterprise contracts, each valued at $500,000 or greater, within 180 days of client onboarding — or ContractMotion continues working at no additional charge until the guarantee is fulfilled.</p>
+        <p class="guarantee-define"><strong>What "signed contract" means:</strong> a fully executed agreement with a municipal utility, engineering firm, or design-build prime with a defined scope of work and minimum contract value of $500,000.</p>
+
+        <div class="sla-block">
+          <div class="sla-header">SLA Requirements — Guarantee Eligibility</div>
+          <ol class="sla-list">
+            <li>Client operates as a licensed water/wastewater EPC, civil contractor, or specialty subcontractor with demonstrated municipal project history at the $500K+ contract value level.</li>
+            <li>Client has operational capacity to execute at least 2 simultaneous projects of the guaranteed value range during the 180-day window.</li>
+            <li>Client provides timely response to positioning prompts — specifically, initial outreach responses to identified procurement contacts within 48 hours of notification.</li>
+            <li>Client's target market geography includes states with active CWSRF or DWSRF loan approval activity in their project type.</li>
+            <li>Client does not have an existing relationship with the identified procurement contact that would constitute a conflict of positioning.</li>
+          </ol>
+        </div>
+
+        <div class="guarantee-why">
+          <p>SRF loan approvals are committed, public, and time-bounded. When a municipality has $22M in CWSRF funding approved, they are legally obligated to use it within 18 months. The procurement will happen. The question is whether you're in the room when the engineering firm is selecting contractors — or whether you find out about it from a public bid advertisement 8 months later.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: ONBOARDING -->
+  <section id="onboarding" class="section section-dark">
+    <div class="container">
+      <div class="section-eyebrow">PROCESS</div>
+      <h2>The Onboarding Sequence</h2>
+      <p class="section-sub">From Signal Audit to Positioned Contractor in 30 Days.</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-days">Days 1–3</div>
+            <div class="timeline-step-label">Free Signal Audit</div>
+          </div>
+          <div class="timeline-connector">
+            <div class="timeline-dot"></div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-right">
+            <p>Before any engagement, ContractMotion runs a no-cost signal audit on your target states. We pull current CWSRF and DWSRF loan approvals, identify qualifying projects by scope and funding level, and map 5 live municipal procurement opportunities you are not currently positioned for. No obligation attached.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-days">Days 4–10</div>
+            <div class="timeline-step-label">ICP and Market Scoping</div>
+          </div>
+          <div class="timeline-connector">
+            <div class="timeline-dot"></div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-right">
+            <p>We document your project history, state licenses, geographic coverage, bonding limits, and preferred project types (water main, treatment plant, CSO, distribution, lead service line). We calibrate the signal monitoring profile to focus on municipalities and project types you can execute.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-days">Days 11–20</div>
+            <div class="timeline-step-label">Signal Stack Activation</div>
+          </div>
+          <div class="timeline-connector">
+            <div class="timeline-dot"></div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-right">
+            <p>We activate monitoring across all state SRF portals, EPA grant databases, consent decree dockets, and PUC filings for your target states. Within 10 days you receive an initial Signal Report — a ranked list of qualifying municipal projects by funding level, project type, procurement timeline, and engineering firm.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-days">Days 21–30</div>
+            <div class="timeline-step-label">Contact Mapping and Positioning</div>
+          </div>
+          <div class="timeline-connector">
+            <div class="timeline-dot"></div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-right">
+            <p>For the top-priority signal clusters, we build contact maps — the specific engineering firm project managers, municipal utility directors, and procurement officers for each identified project. We initiate positioning conversations referencing the specific funded project and your relevant prior work. By Day 30 you are in active conversation on at least 2 qualifying projects.</p>
+          </div>
+        </div>
+        <div class="timeline-item timeline-item-ongoing">
+          <div class="timeline-left">
+            <div class="timeline-days ongoing-label">Ongoing</div>
+            <div class="timeline-step-label">Active Signal Management</div>
+          </div>
+          <div class="timeline-connector">
+            <div class="timeline-dot timeline-dot-ongoing"></div>
+          </div>
+          <div class="timeline-right">
+            <p>Continuous monitoring across all state SRF portals and EPA databases. New approvals and grant announcements are flagged and acted on as they appear. Weekly Signal Reports with updated project rankings, new contacts, and status on all active positioning tracks. The 180-day guarantee clock runs from Day 1 of onboarding.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8: WHO THIS IS FOR -->
+  <section id="who-its-for" class="section">
+    <div class="container">
+      <div class="section-eyebrow">QUALIFICATION</div>
+      <h2>Who This Is Built For — Water &amp; Wastewater Sector</h2>
+      <div class="fit-grid">
+        <div class="fit-col fit-good">
+          <div class="fit-header">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9l4 4 8-8" stroke="#00FF94" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            We Work Best With
+          </div>
+          <ul class="fit-list">
+            <li>Water main, treatment plant, CSO, and distribution system EPCs and civil contractors with $20M–$300M annual revenue</li>
+            <li>Contractors with demonstrated municipal project history at the $500K+ contract value level</li>
+            <li>Firms with state contractor licenses in target states and bonding capacity for SRF-funded project values</li>
+            <li>Companies with operational capacity to execute at least 2 simultaneous new contracts within the 180-day window</li>
+            <li>Owners and BD executives who recognize that engineering firms have preferred contractor lists — and want to be on those lists before projects are formally bid</li>
+          </ul>
+        </div>
+        <div class="fit-col fit-bad">
+          <div class="fit-header">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><line x1="4" y1="4" x2="14" y2="14" stroke="#FF4444" stroke-width="2" stroke-linecap="round"/><line x1="14" y1="4" x2="4" y2="14" stroke="#FF4444" stroke-width="2" stroke-linecap="round"/></svg>
+            Not a Fit
+          </div>
+          <ul class="fit-list">
+            <li>Contractors without state licenses in target states or without municipal project reference history</li>
+            <li>Firms expecting public bid advertisement to be the signal — by then the engineer's preferred list is already built</li>
+            <li>Companies without bonding capacity for SRF-funded project values at the $500K+ level</li>
+            <li>Contractors not willing to respond to positioning prompts within 48 hours — engineering firm contractor selection happens on compressed timelines</li>
+          </ul>
+        </div>
+      </div>
+      <p class="fit-note">The 2-contract guarantee is real and contractual. That is why we are selective about who we onboard. If you are not a fit, we will say so in the Signal Audit call.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 9: CTA -->
+  <section id="cta" class="section section-cta">
+    <div class="container">
+      <div class="cta-primary-block">
+        <div class="section-eyebrow">GET STARTED</div>
+        <h2>Start with the Signal Audit.</h2>
+        <p class="cta-body">A free, no-obligation review of CWSRF, DWSRF, and EPA grant activity in your target states. We identify 5 funded municipal projects you're not positioned for and map the procurement timeline and engineering firm for each. No pitch until you've seen the data.</p>
+        <form id="auditForm" class="audit-form" novalidate>
+          <div class="form-group">
+            <label for="company">Company Name</label>
+            <input type="text" id="company" name="company" placeholder="Your company name" required />
+          </div>
+          <div class="form-group">
+            <label for="role">Your Role</label>
+            <select id="role" name="role" required>
+              <option value="">Select your role</option>
+              <option value="owner">Owner / CEO</option>
+              <option value="vp-ops">VP Operations</option>
+              <option value="dir-preconstruction">Director of Preconstruction</option>
+              <option value="project-executive">Project Executive</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="project-type">Primary Project Type</label>
+            <select id="project-type" name="project-type" required>
+              <option value="">Select project type</option>
+              <option value="water-main">Water Main / Distribution</option>
+              <option value="treatment-plant">Treatment Plant</option>
+              <option value="cso">CSO / Sewer Separation</option>
+              <option value="lead-service">Lead Service Line Replacement</option>
+              <option value="pump-station">Pump Station / Lift Station</option>
+              <option value="multiple">Multiple Types</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="revenue">Annual Revenue Range</label>
+            <select id="revenue" name="revenue" required>
+              <option value="">Select revenue range</option>
+              <option value="15-30m">$15–30M</option>
+              <option value="30-75m">$30–75M</option>
+              <option value="75-150m">$75–150M</option>
+              <option value="150-300m">$150–300M</option>
+              <option value="300m+">$300M+</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-large">Request Your Free Signal Audit</button>
+          <div id="formError" class="form-error" role="alert" aria-live="polite"></div>
+        </form>
+        <div id="formSuccess" class="form-success" style="display:none" role="alert" aria-live="polite">
+          <div class="success-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#00FF94" stroke-width="2"/><path d="M7 12l3 3 7-7" stroke="#00FF94" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Request received.</h3>
+          <p>Audits are completed within 3 business days. If your states have active SRF-funded signal clusters, you will see them.</p>
+        </div>
+        <p class="cta-note" id="ctaNote">Audits are completed within 3 business days.</p>
+      </div>
+
+      <div class="cta-secondary-block">
+        <h3>Not ready for the audit?</h3>
+        <p>Subscribe to the ContractMotion Signal Report — a weekly summary of CWSRF, DWSRF, and EPA grant activity relevant to water and wastewater contractors. Specific municipalities, specific funding, specific engineering firms and timelines.</p>
+        <form id="subscribeForm" class="subscribe-form" novalidate>
+          <div class="subscribe-row">
+            <input type="email" id="subEmail" name="email" placeholder="Your work email" required />
+            <button type="submit" class="btn btn-ghost">Subscribe to the Signal Report</button>
+          </div>
+          <div id="subError" class="form-error" role="alert" aria-live="polite"></div>
+        </form>
+        <div id="subSuccess" class="sub-success" style="display:none" role="alert" aria-live="polite">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#00FF94" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Subscribed. Sent weekly. Unsubscribe at any time.
+        </div>
+        <p class="subscribe-note" id="subNote">Sent weekly. Unsubscribe at any time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-logo">ContractMotion</div>
+      <div class="footer-tagline">Infrastructure Signal Intelligence Platform</div>
+      <div class="footer-links">
+        <a href="/industries">Industries</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#signal-stack">The Signal Stack</a>
+        <a href="#results">Results</a>
+        <a href="#guarantee">The Guarantee</a>
+      </div>
+      <p class="footer-copy">&copy; 2026 ContractMotion. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
