@@ -3,11 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ContractMotion — Infrastructure Signal Intelligence Platform</title>
-  <meta name="description" content="ContractMotion monitors infrastructure signals across 6 industries — power & grid, data centers, water systems, industrial facilities, defense, and nuclear. Position mid-tier EPC contractors 60–180 days before formal procurement opens." />
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <title>ContractMotion | Signal Intelligence for EPC Contractors</title>
+  <meta name="description" content="Get on shortlists for power, data center & water infrastructure projects. Signal intelligence platform helps mid-tier EPC contractors win more RFPs before they're released." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://contractmotion.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ContractMotion | Signal Intelligence for EPC Contractors" />
+  <meta property="og:description" content="Get on shortlists for power, data center & water infrastructure projects. Signal intelligence platform helps mid-tier EPC contractors win more RFPs before they're released." />
+  <meta property="og:url" content="https://contractmotion.com/" />
+  <meta property="og:site_name" content="ContractMotion" />
+  <meta property="og:image" content="https://contractmotion.com/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ContractMotion | Signal Intelligence for EPC Contractors" />
+  <meta name="twitter:description" content="Get on shortlists for power, data center & water infrastructure projects. Signal intelligence platform helps mid-tier EPC contractors win more RFPs before they're released." />
+  <meta name="twitter:image" content="https://contractmotion.com/og-image.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico" />
+
+  <!-- Performance hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="preload" href="style.css" as="style" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -70,7 +93,7 @@
     <div class="container hero-content">
       <div class="hero-text">
         <div class="hero-eyebrow">SIGNAL INTELLIGENCE PLATFORM</div>
-        <h1>By the time the RFP drops, the preferred contractor is already identified.</h1>
+        <h1>Get On More Contractor Shortlists Before RFPs Drop</h1>
         <p class="hero-sub">ContractMotion monitors infrastructure signals across 6 industries — power &amp; grid, data centers, water systems, industrial facilities, defense, and nuclear. We position mid-tier EPC contractors on the short-list 60–180 days before formal procurement opens.</p>
         <div class="hero-ctas">
           <a href="#cta" class="btn btn-primary">Get Your Free Signal Audit</a>
@@ -668,6 +691,7 @@
         <p>Subscribe to the ContractMotion Signal Report — a weekly summary of infrastructure procurement signals across all 6 sectors. No filler. Specific projects, specific signals, specific procurement timelines.</p>
         <form id="subscribeForm" class="subscribe-form" novalidate>
           <div class="subscribe-row">
+            <label for="subEmail" class="sr-only">Your work email</label>
             <input type="email" id="subEmail" name="email" placeholder="Your work email" required />
             <button type="submit" class="btn btn-ghost">Subscribe to the Signal Report</button>
           </div>
@@ -699,5 +723,16 @@
   </footer>
 
   <script src="script.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ContractMotion",
+    "url": "https://contractmotion.com",
+    "description": "Signal intelligence platform for mid-tier EPC contractors. Get on the short-list before the RFP drops.",
+    "sameAs": []
+  }
+  </script>
 </body>
 </html>

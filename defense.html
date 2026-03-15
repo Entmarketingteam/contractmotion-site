@@ -3,11 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ContractMotion — Defense Signal Intelligence</title>
-  <meta name="description" content="Signal intelligence for federal EPC contractors serving DoD construction and base infrastructure. MILCON procurement signals, pre-solicitation positioning." />
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <title>Defense Construction Contractor | MILCON &amp; DoD Project Leads</title>
+  <meta name="description" content="Military construction contractor? Get visibility into MILCON projects, DoD budgets & base infrastructure RFPs years before release." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://contractmotion.com/defense" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Defense Construction Contractor | MILCON &amp; DoD Project Leads" />
+  <meta property="og:description" content="Military construction contractor? Get visibility into MILCON projects, DoD budgets & base infrastructure RFPs years before release." />
+  <meta property="og:url" content="https://contractmotion.com/defense" />
+  <meta property="og:site_name" content="ContractMotion" />
+  <meta property="og:image" content="https://contractmotion.com/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Defense Construction Contractor | MILCON &amp; DoD Project Leads" />
+  <meta name="twitter:description" content="Military construction contractor? Get visibility into MILCON projects, DoD budgets & base infrastructure RFPs years before release." />
+  <meta name="twitter:image" content="https://contractmotion.com/og-image.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico" />
+
+  <!-- Performance hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="preload" href="style.css" as="style" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -47,7 +70,7 @@
           <span class="heat-badge heat-badge-low" style="font-size: 13px; padding: 6px 14px;">HEAT: 65/100</span>
           <span class="status-badge status-building" style="font-size: 12px;">Signals Active</span>
         </div>
-        <h1 style="font-size: clamp(28px, 3.5vw, 44px);">Defense sector intelligence is active.<br>Full page coming soon.</h1>
+        <h1 style="font-size: clamp(28px, 3.5vw, 44px);">DoD Contractors: Win MILCON &amp; Military Base Infrastructure Projects</h1>
         <p class="hero-sub">ContractMotion is monitoring MILCON budget submissions, DD Form 1391 project justifications, NAVFAC and USACE pre-solicitation notices, and base master plan updates. The signal stack is live. The sector page is in production.</p>
         <p class="hero-sub">Federal EPC contractors serving DoD construction and base infrastructure — signal positioning begins the same way it does in every other sector. The MILCON procurement calendar is public. Congressional budget submissions telegraph projects 18–24 months before formal solicitation. We read them so you don't have to.</p>
 
@@ -148,6 +171,7 @@
         <p>Subscribe to the ContractMotion Signal Report for defense sector updates — MILCON signals, NAVFAC/USACE pre-solicitation notices, and base development activity.</p>
         <form id="subscribeForm" class="subscribe-form" novalidate>
           <div class="subscribe-row">
+            <label for="subEmail" class="sr-only">Your work email</label>
             <input type="email" id="subEmail" name="email" placeholder="Your work email" required />
             <button type="submit" class="btn btn-ghost">Subscribe to the Signal Report</button>
           </div>
@@ -179,5 +203,33 @@
   </footer>
 
   <script src="script.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ContractMotion",
+    "url": "https://contractmotion.com",
+    "description": "Signal intelligence platform for mid-tier EPC contractors. Get on the short-list before the RFP drops.",
+    "sameAs": []
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "DoD Contractors: Win MILCON & Military Base Infrastructure Projects",
+    "description": "Military construction contractor? Get visibility into MILCON projects, DoD budgets & base infrastructure RFPs years before release.",
+    "url": "https://contractmotion.com/defense",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://contractmotion.com"},
+        {"@type": "ListItem", "position": 2, "name": "Industries", "item": "https://contractmotion.com/industries"},
+        {"@type": "ListItem", "position": 3, "name": "Defense", "item": "https://contractmotion.com/defense"}
+      ]
+    }
+  }
+  </script>
 </body>
 </html>

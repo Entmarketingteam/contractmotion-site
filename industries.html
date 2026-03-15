@@ -3,11 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ContractMotion — Industries We Serve</title>
-  <meta name="description" content="ContractMotion monitors procurement signals across 6 infrastructure sectors — power & grid, data centers, water, industrial, defense, and nuclear. Position mid-tier EPC contractors before RFPs drop." />
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <title>Industries We Serve | ContractMotion Signal Intelligence</title>
+  <meta name="description" content="ContractMotion serves EPC contractors across 6 infrastructure sectors. Power & grid, data centers, water, industrial, defense, and nuclear." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://contractmotion.com/industries" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Industries We Serve | ContractMotion Signal Intelligence" />
+  <meta property="og:description" content="ContractMotion serves EPC contractors across 6 infrastructure sectors. Power & grid, data centers, water, industrial, defense, and nuclear." />
+  <meta property="og:url" content="https://contractmotion.com/industries" />
+  <meta property="og:site_name" content="ContractMotion" />
+  <meta property="og:image" content="https://contractmotion.com/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Industries We Serve | ContractMotion Signal Intelligence" />
+  <meta name="twitter:description" content="ContractMotion serves EPC contractors across 6 infrastructure sectors. Power & grid, data centers, water, industrial, defense, and nuclear." />
+  <meta name="twitter:image" content="https://contractmotion.com/og-image.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico" />
+
+  <!-- Performance hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="preload" href="style.css" as="style" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -40,6 +63,7 @@
       <div class="hero-text" style="max-width: 720px;">
         <div class="hero-eyebrow">COVERAGE</div>
         <h1>6 Industries. One Signal Engine.</h1>
+        <!-- Primary keyword: EPC contractor lead generation -->
         <p class="hero-sub">ContractMotion monitors procurement signals across power &amp; grid, data centers, water systems, industrial facilities, defense, and nuclear. Mid-tier EPC contractors use our intelligence to position before RFPs drop.</p>
       </div>
     </div>
@@ -363,6 +387,7 @@
         <p>Subscribe to the ContractMotion Signal Report — a weekly summary of infrastructure procurement signals across all 6 sectors. No filler. Specific projects, specific signals, specific procurement timelines.</p>
         <form id="subscribeForm" class="subscribe-form" novalidate>
           <div class="subscribe-row">
+            <label for="subEmail" class="sr-only">Your work email</label>
             <input type="email" id="subEmail" name="email" placeholder="Your work email" required />
             <button type="submit" class="btn btn-ghost">Subscribe to the Signal Report</button>
           </div>
@@ -394,5 +419,32 @@
   </footer>
 
   <script src="script.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ContractMotion",
+    "url": "https://contractmotion.com",
+    "description": "Signal intelligence platform for mid-tier EPC contractors. Get on the short-list before the RFP drops.",
+    "sameAs": []
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "6 Industries. One Signal Engine.",
+    "description": "ContractMotion serves EPC contractors across 6 infrastructure sectors. Power & grid, data centers, water, industrial, defense, and nuclear.",
+    "url": "https://contractmotion.com/industries",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://contractmotion.com"},
+        {"@type": "ListItem", "position": 2, "name": "Industries", "item": "https://contractmotion.com/industries"}
+      ]
+    }
+  }
+  </script>
 </body>
 </html>
