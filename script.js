@@ -7,9 +7,9 @@
 
   /* ---- Queue timestamp ---- */
   function updateQueueTime() {
-    const el = document.getElementById('queueTime');
+    var el = document.getElementById('queueTime');
     if (!el) return;
-    const now = new Date();
+    var now = new Date();
     el.textContent = now.toLocaleTimeString('en-US', {
       hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
     }) + ' ET';
@@ -18,7 +18,7 @@
   setInterval(updateQueueTime, 1000);
 
   /* ---- Nav scroll effect ---- */
-  const nav = document.getElementById('nav');
+  var nav = document.getElementById('nav');
   window.addEventListener('scroll', function () {
     if (window.scrollY > 40) {
       nav.style.background = 'rgba(13, 17, 23, 0.98)';
@@ -28,11 +28,11 @@
   });
 
   /* ---- Mobile nav toggle ---- */
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.querySelector('.nav-links');
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.querySelector('.nav-links');
   if (navToggle && navLinks) {
     navToggle.addEventListener('click', function () {
-      const open = navLinks.classList.toggle('open');
+      var open = navLinks.classList.toggle('open');
       navToggle.setAttribute('aria-expanded', open);
     });
     // Close on link click
@@ -54,43 +54,43 @@
   /* ---- Smooth scroll offset for fixed nav ---- */
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener('click', function (e) {
-      const targetId = this.getAttribute('href');
+      var targetId = this.getAttribute('href');
       if (!targetId || targetId === '#') return;
-      const target = document.querySelector(targetId);
+      var target = document.querySelector(targetId);
       if (!target) return;
       e.preventDefault();
-      const navHeight = 64;
-      const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
-      window.scrollTo({ top, behavior: 'smooth' });
+      var navHeight = 64;
+      var top = target.getBoundingClientRect().top + window.scrollY - navHeight;
+      window.scrollTo({ top: top, behavior: 'smooth' });
     });
   });
 
   /* ---- Signal Audit form ---- */
-  const auditForm = document.getElementById('auditForm');
-  const formSuccess = document.getElementById('formSuccess');
-  const formError = document.getElementById('formError');
-  const ctaNote = document.getElementById('ctaNote');
+  var auditForm = document.getElementById('auditForm');
+  var formSuccess = document.getElementById('formSuccess');
+  var formError = document.getElementById('formError');
+  var ctaNote = document.getElementById('ctaNote');
 
   if (auditForm) {
     auditForm.addEventListener('submit', function (e) {
       e.preventDefault();
       formError.textContent = '';
 
-      const company = auditForm.querySelector('#company').value.trim();
-      const role = auditForm.querySelector('#role').value;
-      const region = auditForm.querySelector('#region').value;
-      const revenue = auditForm.querySelector('#revenue').value;
+      var company = auditForm.querySelector('#company').value.trim();
+      var role = auditForm.querySelector('#role').value;
+      var region = auditForm.querySelector('#region').value;
+      var revenue = auditForm.querySelector('#revenue').value;
 
       if (!company) { formError.textContent = 'Company name is required.'; return; }
       if (!role) { formError.textContent = 'Please select your role.'; return; }
       if (!region) { formError.textContent = 'Please select your target market region.'; return; }
       if (!revenue) { formError.textContent = 'Please select your revenue range.'; return; }
 
-      const btn = auditForm.querySelector('button[type="submit"]');
+      var btn = auditForm.querySelector('button[type="submit"]');
       btn.disabled = true;
       btn.textContent = 'Submitting...';
 
-      const payload = { company, role, region, revenue };
+      var payload = { company: company, role: role, region: region, revenue: revenue };
 
       fetch('/api/signal-audit', {
         method: 'POST',
@@ -111,30 +111,30 @@
   }
 
   /* ---- Subscribe form ---- */
-  const subscribeForm = document.getElementById('subscribeForm');
-  const subSuccess = document.getElementById('subSuccess');
-  const subError = document.getElementById('subError');
-  const subNote = document.getElementById('subNote');
+  var subscribeForm = document.getElementById('subscribeForm');
+  var subSuccess = document.getElementById('subSuccess');
+  var subError = document.getElementById('subError');
+  var subNote = document.getElementById('subNote');
 
   if (subscribeForm) {
     subscribeForm.addEventListener('submit', function (e) {
       e.preventDefault();
       subError.textContent = '';
 
-      const email = subscribeForm.querySelector('#subEmail').value.trim();
+      var email = subscribeForm.querySelector('#subEmail').value.trim();
       if (!email || !isValidEmail(email)) {
         subError.textContent = 'A valid email address is required.';
         return;
       }
 
-      const btn = subscribeForm.querySelector('button[type="submit"]');
+      var btn = subscribeForm.querySelector('button[type="submit"]');
       btn.disabled = true;
       btn.textContent = 'Subscribing...';
 
       fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({ email: email })
       })
         .catch(function () {
           return { ok: true };
@@ -154,7 +154,7 @@
 
   /* ---- Intersection observer for fade-in ---- */
   if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(function (entries) {
+    var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
@@ -164,7 +164,7 @@
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll(
-      '.step-card, .metric-card, .signal-card, .timeline-item, .fit-col'
+      '.step-card, .service-card, .signal-card, .testimonial-card, .onboard-card, .fit-col, .guarantee-point, .proof-item'
     ).forEach(function (el) {
       el.classList.add('fade-in');
       observer.observe(el);
