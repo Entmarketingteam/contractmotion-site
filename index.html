@@ -3,13 +3,109 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ContractMotion — We Find Your Next Contract Before the RFP Drops</title>
+  <title>ContractMotion — Stop Losing Grid Infrastructure Contracts to Whoever Showed Up First</title>
   <meta name="description" content="We find grid infrastructure contracts 60-90 days before the RFP drops and position you to win. 2 signed contracts in 180 days, guaranteed." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ContractMotion — Contract Intelligence for Grid Infrastructure" />
+  <meta property="og:description" content="We find grid infrastructure contracts 60-90 days before the RFP drops and position you to win. 2 signed contracts in 180 days, guaranteed." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.contractmotion.com/" />
+  <meta property="og:image" content="https://www.contractmotion.com/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ContractMotion — Contract Intelligence for Grid Infrastructure" />
+  <meta name="twitter:description" content="We find grid infrastructure contracts 60-90 days before the RFP drops and position you to win." />
+  <meta name="twitter:image" content="https://www.contractmotion.com/og-image.png" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.contractmotion.com/" />
+
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Structured Data: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ContractMotion",
+    "url": "https://www.contractmotion.com",
+    "description": "Signal-driven contract acquisition for mid-tier power and grid infrastructure contractors.",
+    "foundingDate": "2025",
+    "areaServed": "United States",
+    "serviceType": "Contract Acquisition, Lead Generation, Business Development"
+  }
+  </script>
+
+  <!-- Structured Data: WebPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "ContractMotion — Contract Intelligence for Grid Infrastructure",
+    "description": "We find grid infrastructure contracts 60-90 days before the RFP drops and position you to win.",
+    "url": "https://www.contractmotion.com/",
+    "mainEntity": {
+      "@type": "Service",
+      "name": "Enterprise Contract Acquisition System (ECAS)",
+      "provider": {
+        "@type": "Organization",
+        "name": "ContractMotion"
+      },
+      "description": "Signal-driven contract acquisition system that monitors public infrastructure data and positions contractors 60-90 days before formal procurement.",
+      "areaServed": "United States",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Contract Acquisition Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Free Signal Audit",
+              "description": "No-cost analysis identifying 5 live procurement opportunities in your target market."
+            }
+          }
+        ]
+      }
+    }
+  }
+  </script>
+
+  <!-- GA4 — Replace G-XXXXXXXXXX with your Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
+  <!-- Microsoft Clarity — Replace YOUR_CLARITY_PROJECT_ID -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window,document,"clarity","script","YOUR_CLARITY_PROJECT_ID");
+  </script>
+
+  <!-- Hotjar — Replace YOUR_HOTJAR_SITE_ID -->
+  <script>
+    (function(h,o,t,j,a,r){
+      h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+      h._hjSettings={hjid:0,hjsv:6}; /* Replace 0 with YOUR_HOTJAR_SITE_ID */
+      a=o.getElementsByTagName('head')[0];
+      r=o.createElement('script');r.async=1;
+      r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+  </script>
 </head>
 <body>
 
@@ -18,17 +114,22 @@
     <div class="nav-inner">
       <a href="#" class="nav-logo">ContractMotion</a>
       <ul class="nav-links">
-        <li><a href="#what-we-do">What We Do</a></li>
-        <li><a href="#how-it-works">How It Works</a></li>
-        <li><a href="#results">Results</a></li>
-        <li><a href="#guarantee">Guarantee</a></li>
+        <li><a href="#what-we-do" data-track="nav_click" data-label="what_we_do">What We Do</a></li>
+        <li><a href="#how-it-works" data-track="nav_click" data-label="how_it_works">How It Works</a></li>
+        <li><a href="#results" data-track="nav_click" data-label="results">Results</a></li>
+        <li><a href="#guarantee" data-track="nav_click" data-label="guarantee">Guarantee</a></li>
       </ul>
-      <a href="#cta" class="btn btn-primary btn-sm nav-cta">Get Free Audit</a>
+      <a href="#cta" class="btn btn-primary btn-sm nav-cta" data-track="cta_click" data-label="nav_cta">Get Free Audit</a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
+
+  <!-- STICKY MOBILE CTA -->
+  <div id="mobileCta" class="mobile-cta-bar" aria-hidden="true">
+    <a href="#cta" class="btn btn-primary mobile-cta-btn" data-track="cta_click" data-label="mobile_sticky">See 5 Projects You're Missing</a>
+  </div>
 
   <!-- SECTION 1: HERO -->
   <section id="hero">
@@ -73,14 +174,14 @@
     </div>
     <div class="container hero-content">
       <div class="hero-text">
-        <div class="hero-eyebrow">CONTRACT ACQUISITION FOR GRID INFRASTRUCTURE</div>
-        <h1>We find your next contract before the RFP drops.</h1>
-        <p class="hero-sub">ContractMotion monitors public infrastructure data, identifies upcoming projects in your market, and positions you with the right people — 60 to 90 days before the bid opens. You show up as a known contractor, not a cold submission.</p>
+        <div class="hero-eyebrow">FOR GRID INFRASTRUCTURE CONTRACTORS</div>
+        <h1>Stop losing contracts to whoever showed up first.</h1>
+        <p class="hero-sub">Right now, projects in your market are moving toward procurement — and you don't know about them yet. We monitor 10+ public databases to find them, identify the decision makers, and position you before the RFP drops. Guaranteed: 2 signed contracts in 180 days.</p>
         <div class="hero-ctas">
-          <a href="#cta" class="btn btn-primary">Get Your Free Signal Audit</a>
-          <a href="#how-it-works" class="btn btn-ghost">See How It Works</a>
+          <a href="#cta" class="btn btn-primary" data-track="cta_click" data-label="hero_primary">See 5 Projects You're Missing — Free</a>
+          <a href="#how-it-works" class="btn btn-ghost" data-track="cta_click" data-label="hero_secondary">See How It Works</a>
         </div>
-        <p class="hero-note">We'll map 5 live projects in your market you don't know about yet. Free. No pitch.</p>
+        <p class="hero-note">Takes 3 days. Shows you 5 live projects. Zero obligation.</p>
       </div>
     </div>
   </section>
@@ -90,23 +191,23 @@
     <div class="container">
       <div class="proof-grid">
         <div class="proof-item">
-          <div class="proof-number">47</div>
-          <div class="proof-label">Projects identified in first 90 days</div>
+          <div class="proof-number" data-count="47">47</div>
+          <div class="proof-label">Qualifying projects found for one client in 90 days</div>
         </div>
         <div class="proof-divider"></div>
         <div class="proof-item">
           <div class="proof-number">74 days</div>
-          <div class="proof-label">Average head start before the RFP</div>
+          <div class="proof-label">Average head start before the RFP drops</div>
         </div>
         <div class="proof-divider"></div>
         <div class="proof-item">
           <div class="proof-number">$1.2M</div>
-          <div class="proof-label">Average contract value</div>
+          <div class="proof-label">Average positioned contract value</div>
         </div>
         <div class="proof-divider"></div>
         <div class="proof-item">
           <div class="proof-number">180-day</div>
-          <div class="proof-label">Guarantee: 2 signed contracts or we work free</div>
+          <div class="proof-label">Guarantee — 2 signed contracts or we work free</div>
         </div>
       </div>
     </div>
@@ -116,7 +217,7 @@
   <section id="what-we-do" class="section">
     <div class="container">
       <div class="section-eyebrow">WHAT WE DO</div>
-      <h2>Think of us as your contract intelligence team.</h2>
+      <h2>Here's what changes when you work with us.</h2>
       <p class="section-intro">Most contractors wait for RFPs, attend trade shows, and hope for referrals. That works — until you realize the best contracts are quietly awarded to whoever showed up first. We make sure that's you.</p>
 
       <div class="services-grid">
@@ -155,9 +256,9 @@
         <div class="problem-copy">
           <div class="section-eyebrow">THE REALITY</div>
           <h2>The best contracts are won before the RFP is published.</h2>
-          <p>Here's how grid infrastructure procurement actually works: months before the formal bid goes out, utility procurement teams are already having conversations with contractors. By the time you see the RFP, the shortlist is informally set.</p>
-          <p>The signals that predict these projects are all public — federal filings, interconnection queues, permit records, utility capital plans. But nobody is reading all of them. Nobody is connecting the dots across ten different databases to spot which projects are 60 days from procurement.</p>
-          <p class="problem-highlight">We do. That's what ContractMotion is.</p>
+          <p>Here's how grid infrastructure procurement actually works: months before the formal bid goes out, utility teams are already talking to contractors. By the time you see the RFP, the shortlist is informally set.</p>
+          <p>The signals that predict these projects are all public — federal filings, interconnection queues, permit records, utility capital plans. But nobody is connecting the dots across ten different databases to spot which projects are 60 days from procurement.</p>
+          <p class="problem-highlight">That's what we built ContractMotion to do. And it's working.</p>
         </div>
         <div class="problem-visual">
           <div class="timeline-comparison">
@@ -223,7 +324,7 @@
     <div class="container">
       <div class="section-eyebrow">HOW IT WORKS</div>
       <h2>Three steps. Fully done for you.</h2>
-      <p class="section-sub">You don't need to learn new tools, hire analysts, or change how you operate. We handle everything.</p>
+      <p class="section-sub">Zero tools to learn. Zero hires to make. We do the work.</p>
       <div class="steps-grid">
         <div class="step-card">
           <div class="step-number">01</div>
@@ -256,21 +357,21 @@
     </div>
   </section>
 
-  <!-- SECTION 6: GUARANTEE (MOVED UP) -->
+  <!-- SECTION 6: GUARANTEE -->
   <section id="guarantee" class="section section-guarantee">
     <div class="container">
       <div class="guarantee-block">
         <div class="section-eyebrow eyebrow-dark">THE GUARANTEE</div>
         <h2 class="guarantee-headline">2 signed contracts in 180 days.<br>Or we keep working for free.</h2>
-        <p class="guarantee-body">We guarantee 2 signed enterprise contracts — each worth $500K or more — within 180 days. If we don't deliver, we continue working at no charge until we do. No other lead gen service in this industry makes this guarantee, because no one else has the data to back it up.</p>
+        <p class="guarantee-body">We guarantee 2 signed enterprise contracts — each worth $500K+ — within 180 days. If we don't deliver, we keep working at no charge until we do.</p>
         <div class="guarantee-simple-grid">
           <div class="guarantee-point">
             <div class="guarantee-point-icon">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10l5 5 9-9" stroke="#0D1117" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
             <div>
-              <strong>Real contracts, not leads.</strong>
-              <span>Fully executed agreements with enterprise counterparties. Minimum $500K value each.</span>
+              <strong>Real contracts, not "leads."</strong>
+              <span>Fully executed agreements with enterprise counterparties. Not meetings. Not introductions. Signed contracts.</span>
             </div>
           </div>
           <div class="guarantee-point">
@@ -278,8 +379,8 @@
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10l5 5 9-9" stroke="#0D1117" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
             <div>
-              <strong>No risk to you.</strong>
-              <span>If we miss the 180-day mark, we keep working at zero additional cost until the guarantee is met.</span>
+              <strong>Zero risk to you.</strong>
+              <span>Miss the 180-day mark? We keep working at zero additional cost until the guarantee is fulfilled.</span>
             </div>
           </div>
           <div class="guarantee-point">
@@ -288,9 +389,12 @@
             </div>
             <div>
               <strong>Why we can promise this.</strong>
-              <span>Signal-driven positioning has predictive precision. We know which projects are coming because the data tells us.</span>
+              <span>Signal-driven positioning has predictive precision. A cold email agency can't make this guarantee. We can — because the data tells us what's coming.</span>
             </div>
           </div>
+        </div>
+        <div class="guarantee-catch">
+          <strong>What's the catch?</strong> We're selective. You need to be a licensed EPC/T&D contractor with $500K+ project history, capacity for 2 simultaneous projects, and a target market in PJM, ERCOT, MISO, WECC, or SPP. We also need 48-hour response times from you when we surface an opportunity. If you qualify, the guarantee is contractual.
         </div>
       </div>
     </div>
@@ -300,7 +404,7 @@
   <section id="results" class="section section-dark">
     <div class="container">
       <div class="section-eyebrow">RESULTS</div>
-      <h2>What We've Found for Clients</h2>
+      <h2>These Contractors Got There First</h2>
       <p class="section-sub">Real projects. Real positioning. Real outcomes.</p>
 
       <div class="signal-examples-grid">
@@ -397,7 +501,7 @@
           </div>
         </div>
         <div class="testimonial-card">
-          <div class="testimonial-quote">"Our BD was conferences and referrals. It worked, but we were always reactive. ContractMotion completely changed our pipeline — we now see what's coming and who to talk to before anyone else in our market."</div>
+          <div class="testimonial-quote">"Our BD was conferences and referrals. It worked, but we were always reactive. ContractMotion completely changed our pipeline — we now see what's coming and who to talk to before anyone else."</div>
           <div class="testimonial-author">
             <div class="testimonial-name">Director of Preconstruction</div>
             <div class="testimonial-company">Substation Contractor, PJM Region, $120M Revenue</div>
@@ -567,8 +671,22 @@
     <div class="container">
       <div class="cta-primary-block">
         <div class="section-eyebrow">GET STARTED</div>
-        <h2>See What You're Missing. Free.</h2>
-        <p class="cta-body">Request a Signal Audit and we'll pull current queue data for your market, identify 5 live projects you're not positioned for, and map the procurement timeline for each. No pitch until you've seen the data.</p>
+        <h2>Find Out What's in Your Market Right Now.</h2>
+        <p class="cta-body">Request a Signal Audit and in 3 business days you'll see exactly what's happening in your territory — projects, timelines, and the contacts behind them.</p>
+        <div class="cta-steps">
+          <div class="cta-step">
+            <span class="cta-step-num">1</span>
+            <span>Fill out the form below (30 seconds)</span>
+          </div>
+          <div class="cta-step">
+            <span class="cta-step-num">2</span>
+            <span>We pull queue data for your market (1–3 days)</span>
+          </div>
+          <div class="cta-step">
+            <span class="cta-step-num">3</span>
+            <span>You see 5 live projects you didn't know about</span>
+          </div>
+        </div>
         <form id="auditForm" class="audit-form" novalidate>
           <div class="form-row">
             <div class="form-group">
@@ -612,27 +730,27 @@
               </select>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary btn-large">Request Your Free Signal Audit</button>
+          <button type="submit" class="btn btn-primary btn-large" data-track="form_submit" data-label="signal_audit">Request Your Free Signal Audit</button>
           <div id="formError" class="form-error" role="alert" aria-live="polite"></div>
         </form>
         <div id="formSuccess" class="form-success" style="display:none" role="alert" aria-live="polite">
           <div class="success-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#00FF94" stroke-width="2"/><path d="M7 12l3 3 7-7" stroke="#00FF94" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-          <h3>Request received.</h3>
-          <p>Audits are completed within 3 business days. If your market has active signal clusters, you'll see them. If it doesn't, we'll tell you that too.</p>
+          <h3>You're in.</h3>
+          <p>We'll pull queue data for your market and have your Signal Audit ready within 3 business days. If there are active opportunities, you'll see them. If there aren't, we'll tell you that too.</p>
         </div>
-        <p class="cta-note" id="ctaNote">Audits completed within 3 business days. Free. No obligation.</p>
+        <p class="cta-note" id="ctaNote">Free. Takes 3 business days. No sales call unless you want one.</p>
       </div>
 
       <div class="cta-secondary-block">
         <div class="container">
-          <h3>Not ready yet?</h3>
+          <h3>Want to see the data first?</h3>
           <p>Get the weekly Signal Report — a summary of PJM, ERCOT, and FERC activity relevant to mid-tier grid infrastructure contractors. Specific projects, specific signals, specific timelines. No filler.</p>
           <form id="subscribeForm" class="subscribe-form" novalidate>
             <div class="subscribe-row">
               <input type="email" id="subEmail" name="email" placeholder="Your work email" required />
-              <button type="submit" class="btn btn-ghost">Subscribe Free</button>
+              <button type="submit" class="btn btn-ghost" data-track="form_submit" data-label="newsletter_subscribe">Subscribe Free</button>
             </div>
             <div id="subError" class="form-error" role="alert" aria-live="polite"></div>
           </form>

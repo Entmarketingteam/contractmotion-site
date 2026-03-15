@@ -1,9 +1,17 @@
 /* ============================================================
    ContractMotion — script.js
+   GA4 event tracking, heatmap-ready, mobile-optimized
    ============================================================ */
 
 (function () {
   'use strict';
+
+  /* ---- GA4 helper (fires gtag events if loaded, no-ops otherwise) ---- */
+  function trackEvent(eventName, params) {
+    if (typeof gtag === 'function') {
+      gtag('event', eventName, params || {});
+    }
+  }
 
   /* ---- Queue timestamp ---- */
   function updateQueueTime() {
@@ -35,14 +43,12 @@
       var open = navLinks.classList.toggle('open');
       navToggle.setAttribute('aria-expanded', open);
     });
-    // Close on link click
     navLinks.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', function () {
         navLinks.classList.remove('open');
         navToggle.setAttribute('aria-expanded', 'false');
       });
     });
-    // Close on outside click
     document.addEventListener('click', function (e) {
       if (!nav.contains(e.target)) {
         navLinks.classList.remove('open');
@@ -62,6 +68,19 @@
       var navHeight = 64;
       var top = target.getBoundingClientRect().top + window.scrollY - navHeight;
       window.scrollTo({ top: top, behavior: 'smooth' });
+    });
+  });
+
+  /* ---- GA4: Track all CTA/button clicks via data-track attribute ---- */
+  document.querySelectorAll('[data-track]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      var eventName = this.getAttribute('data-track');
+      var label = this.getAttribute('data-label') || '';
+      trackEvent(eventName, {
+        event_category: 'engagement',
+        event_label: label,
+        button_text: this.textContent.trim().substring(0, 50)
+      });
     });
   });
 
@@ -90,6 +109,15 @@
       btn.disabled = true;
       btn.textContent = 'Submitting...';
 
+      // GA4: form submission event
+      trackEvent('signal_audit_request', {
+        event_category: 'conversion',
+        company: company,
+        role: role,
+        region: region,
+        revenue: revenue
+      });
+
       var payload = { company: company, role: role, region: region, revenue: revenue };
 
       fetch('/api/signal-audit', {
@@ -98,7 +126,6 @@
         body: JSON.stringify(payload)
       })
         .catch(function () {
-          // Endpoint not live — still show success in placeholder mode
           return { ok: true };
         })
         .then(function () {
@@ -131,6 +158,12 @@
       btn.disabled = true;
       btn.textContent = 'Subscribing...';
 
+      // GA4: newsletter subscription event
+      trackEvent('newsletter_subscribe', {
+        event_category: 'conversion',
+        method: 'email'
+      });
+
       fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -154,11 +187,11 @@
 
   /* ---- Intersection observer for fade-in ---- */
   if ('IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function (entries) {
+    var fadeObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+          fadeObserver.unobserve(entry.target);
         }
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
@@ -167,7 +200,83 @@
       '.step-card, .service-card, .signal-card, .testimonial-card, .onboard-card, .fit-col, .guarantee-point, .proof-item'
     ).forEach(function (el) {
       el.classList.add('fade-in');
-      observer.observe(el);
+      fadeObserver.observe(el);
     });
   }
+
+  /* ---- GA4: Section visibility tracking (for scroll depth / heatmap correlation) ---- */
+  if ('IntersectionObserver' in window) {
+    var sectionsSeen = {};
+    var sectionObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.id;
+          if (id && !sectionsSeen[id]) {
+            sectionsSeen[id] = true;
+            trackEvent('section_view', {
+              event_category: 'engagement',
+              section_id: id
+            });
+          }
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('section[id]').forEach(function (section) {
+      sectionObserver.observe(section);
+    });
+  }
+
+  /* ---- GA4: Scroll depth milestones ---- */
+  var scrollMilestones = { 25: false, 50: false, 75: false, 90: false };
+  window.addEventListener('scroll', function () {
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight <= 0) return;
+    var pct = Math.round((scrollTop / docHeight) * 100);
+    [25, 50, 75, 90].forEach(function (milestone) {
+      if (pct >= milestone && !scrollMilestones[milestone]) {
+        scrollMilestones[milestone] = true;
+        trackEvent('scroll_depth', {
+          event_category: 'engagement',
+          percent_scrolled: milestone
+        });
+      }
+    });
+  });
+
+  /* ---- Mobile sticky CTA bar ---- */
+  var mobileCta = document.getElementById('mobileCta');
+  if (mobileCta) {
+    var ctaSection = document.getElementById('cta');
+    var heroSection = document.getElementById('hero');
+
+    window.addEventListener('scroll', function () {
+      // Show after scrolling past hero, hide when CTA section is visible
+      var pastHero = window.scrollY > (heroSection ? heroSection.offsetHeight * 0.7 : 400);
+      var nearCta = false;
+      if (ctaSection) {
+        var ctaRect = ctaSection.getBoundingClientRect();
+        nearCta = ctaRect.top < window.innerHeight && ctaRect.bottom > 0;
+      }
+      if (pastHero && !nearCta) {
+        mobileCta.classList.add('visible');
+        mobileCta.setAttribute('aria-hidden', 'false');
+      } else {
+        mobileCta.classList.remove('visible');
+        mobileCta.setAttribute('aria-hidden', 'true');
+      }
+    });
+  }
+
+  /* ---- GA4: Time on page (fires at 30s, 60s, 120s) ---- */
+  [30, 60, 120].forEach(function (seconds) {
+    setTimeout(function () {
+      trackEvent('time_on_page', {
+        event_category: 'engagement',
+        seconds_elapsed: seconds
+      });
+    }, seconds * 1000);
+  });
+
 })();
