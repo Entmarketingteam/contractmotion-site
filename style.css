@@ -1470,3 +1470,15 @@ strong { color: var(--text); }
 .metric-card:nth-child(4) { transition-delay: 0.2s; }
 .signal-card:nth-child(2) { transition-delay: 0.1s; }
 .signal-card:nth-child(3) { transition-delay: 0.2s; }
+
+/* Timeline track-event positions */
+.track-event-0  { left: 0%; }
+.track-event-30 { left: 30%; }
+.track-event-35 { left: 35%; }
+.track-event-62 { left: 62%; }
+.track-event-65 { left: 65%; }
+.track-event-100 { left: 100%; }
+
+/* Industries hero overlay */
+.industries-hero-overlay { background: rgba(13,17,23,0.88); }
+.industries-hero-text { max-width: 720px; }
