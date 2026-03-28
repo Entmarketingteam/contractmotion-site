@@ -889,6 +889,55 @@ strong { color: var(--text); }
 }
 
 /* ============================================================
+   PERSONA CARDS (Who It's For)
+   ============================================================ */
+.persona-grid,
+.persona-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.persona-card {
+  padding: 32px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-2);
+}
+.persona-revenue {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+.persona-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+.persona-pain {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+.persona-context {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+@media (max-width: 860px) {
+  .persona-grid,
+  .persona-cards { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
    SECTION 9: CTA
    ============================================================ */
 .section-cta { background: var(--bg); padding: 96px 0 0; }
