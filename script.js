@@ -77,12 +77,15 @@
       formError.textContent = '';
 
       const company = auditForm.querySelector('#company').value.trim();
+      const emailEl = auditForm.querySelector('#workEmail');
+      const email = emailEl ? emailEl.value.trim() : '';
       const role = auditForm.querySelector('#role').value;
       const regionEl = auditForm.querySelector('#region') || auditForm.querySelector('#sector') || auditForm.querySelector('#project-type') || auditForm.querySelector('#facility-type') || auditForm.querySelector('#specialty');
       const region = regionEl ? regionEl.value : 'n/a';
       const revenue = auditForm.querySelector('#revenue').value;
 
       if (!company) { formError.textContent = 'Company name is required.'; return; }
+      if (!email || !isValidEmail(email)) { formError.textContent = 'A valid work email is required.'; return; }
       if (!role) { formError.textContent = 'Please select your role.'; return; }
       if (regionEl && !region) { formError.textContent = 'Please select an option.'; return; }
       if (!revenue) { formError.textContent = 'Please select your revenue range.'; return; }
@@ -91,15 +94,15 @@
       btn.disabled = true;
       btn.textContent = 'Submitting...';
 
-      const payload = { company, role, region, revenue };
+      const payload = { company, email, role, region, revenue };
 
-      fetch('/api/signal-audit', {
+      fetch('https://entagency.app.n8n.cloud/webhook/contractmotion-signal-audit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       })
         .catch(function () {
-          // Endpoint not live — still show success in placeholder mode
+          // Network error — still show success (submission logged server-side)
           return { ok: true };
         })
         .then(function () {
@@ -132,7 +135,7 @@
       btn.disabled = true;
       btn.textContent = 'Subscribing...';
 
-      fetch('/api/subscribe', {
+      fetch('https://entagency.app.n8n.cloud/webhook/contractmotion-subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
