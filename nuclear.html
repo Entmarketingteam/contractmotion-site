@@ -34,7 +34,9 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    .nuclear-hero { min-height: 100vh; display: flex; align-items: center; padding-top: 64px; }
+    .nuclear-hero { min-height: 100vh; display: flex; align-items: center; padding-top: 64px; background-image: url('images/hero/hero-nuclear.png'); background-size: cover; background-position: center; position: relative; }
+    .nuclear-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, rgba(13,17,23,0.95) 0%, rgba(13,17,23,0.80) 50%, rgba(13,17,23,0.60) 100%); z-index: 0; }
+    .nuclear-hero .container { position: relative; z-index: 1; }
     .nuclear-hero .hero-text { max-width: 640px; }
     .nuclear-hero-badges { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
     .nuclear-heat-badge { font-size: 13px; padding: 6px 14px; }
