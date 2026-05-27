@@ -13,3 +13,12 @@ Triggered by decision to morph ContractMotion from "Signal Intelligence for EPC 
   - `./campaigns/horizontal-morph/vertical-govcon-services.md`
 
 Status: Draft. Pending operator review + proof slot fills before build into HTML.
+
+## 2026-05-26 — Money-Voice Reposition
+
+Re-layers the horizontal "contract intelligence" copy with a money + status (Jeremy Haynes / Megladon) register aimed at established, affluent contractor-owners (multi-truck, multi-GBP, awards, $3M+). Repels tiny/poor; flatters market leaders. Decisions: tiered single brand · hybrid vertical arch (subpages default, subdomain only with paid-traffic budget) · big-project permit engine folds in as the proof feed.
+
+- Brief + rewritten parent hero (Variant A status / B contrarian) + vertical de-ECAS retune pattern + money-voice rubric: `./campaigns/money-voice-reposition/brief.md`
+- Current parent hero scored 42/70 for the money-voice goal (Voice/Desire/Proof are the gaps).
+
+Status: Draft. Next: build retuned index.html hero + power-grid as the de-ECAS template, then batch-retune verticals.
