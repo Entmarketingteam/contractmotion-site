@@ -8,6 +8,24 @@
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://contractmotion.com/direct-response" />
 
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ContractMotion" />
+  <meta property="og:title" content="5 Qualified Commercial Meetings in 30 Days — Or You Don't Pay" />
+  <meta property="og:description" content="We scrape obscure federal registries and county GIS data to book your estimators directly onto high-value facility calendars. Pure performance—no retainers, no setup fees." />
+  <meta property="og:url" content="https://contractmotion.com/direct-response" />
+  <meta property="og:image" content="https://contractmotion.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="5 Qualified Commercial Meetings in 30 Days — Or You Don't Pay" />
+  <meta name="twitter:description" content="Custom scrapers intercept your exact buyers before they publish an RFP. You only pay for booked meetings." />
+  <meta name="twitter:image" content="https://contractmotion.com/og-image.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -1460,6 +1478,37 @@
       .sticky-cta { display: flex; }
       body { padding-bottom: 76px; }
     }
+
+    /* ---- Region-capture lead form (final CTA) ---- */
+    .lead-form {
+      display: flex;
+      gap: 12px;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .lead-input {
+      flex: 1;
+      min-width: 0;
+      background: var(--bg-2);
+      border: 1px solid var(--border-2);
+      color: #FFF;
+      padding: 0 18px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.3s ease;
+    }
+    .lead-input::placeholder { color: var(--text-muted); }
+    .lead-input:focus {
+      border-color: var(--accent);
+      box-shadow: inset 0 0 10px rgba(0,255,148,0.2), 0 0 0 3px rgba(0,255,148,0.12);
+    }
+    @media (max-width: 559px) {
+      .lead-form { flex-direction: column; }
+      .lead-input { padding: 16px 18px; }
+      .lead-form .btn { width: 100%; }
+    }
   </style>
 </head>
 <body>
@@ -1531,16 +1580,16 @@
   <section class="vsl-section">
     <div class="container">
       <div class="vsl-header">
-        <span class="vsl-badge">VEO 3.1 & GEMINI GENERATED MECHANISM</span>
-        <h2 class="vsl-title">Watch the 2-Minute Outbound Machine Demo</h2>
-        <p class="vsl-desc">Click below to see the live visual storyboard, Doppler scraper logic, and how we qualify leads 100% on performance.</p>
+        <span class="vsl-badge">VISUAL STORYBOARD · SHOT-BY-SHOT</span>
+        <h2 class="vsl-title">See the 2-Minute Outbound Machine — Scene by Scene</h2>
+        <p class="vsl-desc">Click to open the full shot-by-shot storyboard: the hook, the Doppler scraper mechanism, the data intercept, and how we qualify leads 100% on performance.</p>
       </div>
       
       <!-- Interactive Glowing VSL Thumbnail -->
       <div class="vsl-player-wrap" onclick="toggleModal(true)">
         <div class="vsl-art">
           <div class="vsl-play-pulse">▶</div>
-          <div class="vsl-thumb-text">CLICK TO PLAY ACTIVE OUTBOUND STIMULUS VIDEO</div>
+          <div class="vsl-thumb-text">CLICK TO OPEN THE VISUAL STORYBOARD</div>
         </div>
       </div>
     </div>
@@ -1666,6 +1715,10 @@
         <button class="niche-btn" onclick="switchNiche('ndt')">NDT & INSPECTION</button>
         <button class="niche-btn" onclick="switchNiche('roofing')">COMMERCIAL ROOFING</button>
         <button class="niche-btn" onclick="switchNiche('pest')">PEST CONTROL</button>
+        <button class="niche-btn" onclick="switchNiche('solar')">C&amp;I SOLAR</button>
+        <button class="niche-btn" onclick="switchNiche('water')">WATER / WASTEWATER</button>
+        <button class="niche-btn" onclick="switchNiche('hvac')">HVAC / MECHANICAL</button>
+        <button class="niche-btn" onclick="switchNiche('fire')">FIRE &amp; LIFE SAFETY</button>
       </div>
 
       <div class="panel-container">
@@ -1984,7 +2037,10 @@ Can I send you the list of 15 properties for free?</div>
       <h2 class="section-title">Claim Your Metro-Niche Slot</h2>
       <p class="section-desc">Do not book a 30-minute sales call. Just click below, tell us your region, and we'll send you a custom list of 15 local high-intent targets for free to prove our scrapers are live.</p>
       
-      <a href="mailto:ethan@contractmotion.com?subject=I%20want%20my%2015%20free%20leads&body=Hey%20Ethan,%20I'm%20a%20commercial%20operator%20in%20[Your%20Metro%20Area].%20Send%20me%20my%2015%20free%20signal-leads!" class="btn btn-primary btn-large" style="max-width: 480px; display:inline-flex;">Get My 15 Free Signal-Leads &rarr;</a>
+      <form class="lead-form" onsubmit="return submitLead(event)">
+        <input type="text" id="lead-metro" class="lead-input" placeholder="Your metro area — e.g. Dallas, TX" autocomplete="address-level2" required />
+        <button type="submit" class="btn btn-primary btn-large">Get My 15 Free Signal-Leads &rarr;</button>
+      </form>
       <div class="cta-subtext" style="margin-top:16px;">We typically deliver your custom local lead sheet within 24 hours.</div>
     </div>
   </section>
@@ -2099,6 +2155,102 @@ We set up automated direct-mail and email ABM targeting local facility managers.
 We charge purely on performance: you only pay $150 per commercial lead that requests a property walk-through and bid. 
 
 Can I send you a quick 2-minute video on how we got this list of commercial facility managers?`
+      },
+      solar: {
+        title: "Commercial & Industrial Solar",
+        size: "8,000",
+        intercept: "We scrape utility interconnection queues and county building-permit portals to find commercial properties that just filed for solar or major electrical upgrades. We cross-reference state SREC and incentive registries to find sites with active C&I intent before competitors ever see them.",
+        signals: [
+          "Utility / ISO interconnection queue filings",
+          "County commercial solar & electrical permit portals",
+          "State SREC / renewable-incentive registries",
+          "SEIA member & NABCEP certified operator directories"
+        ],
+        swipe: `Subject: quick interconnection question
+
+Hey [First Name],
+
+Saw [Company] just filed an interconnection request for the facility on [Street] in [City].
+
+Most C&I solar operators tell us the hardest part isn't installing — it's finding commercial roofs and sites that are actually ready to move before 10 other installers show up.
+
+We monitor interconnection queues, permit portals, and SREC registries in [State] and route ready-to-quote sites straight to your estimators.
+
+Performance only: you pay $350 per qualified site walkthrough booked. No retainers.
+
+We've already mapped 14 commercial sites mid-filing in your service area. Can I send you the list for free?`
+      },
+      water: {
+        title: "Water / Wastewater Services",
+        size: "6,500",
+        intercept: "We monitor EPA ECHO enforcement actions and state NPDES discharge permits to find facilities with active compliance violations or expiring permits. Plants facing consent decrees need remediation, testing, and equipment vendors on a deadline.",
+        signals: [
+          "EPA ECHO enforcement & violation database",
+          "State NPDES discharge permit renewals",
+          "SDWIS public water-system inventories",
+          "Municipal capital-improvement-plan (CIP) budgets"
+        ],
+        swipe: `Subject: quick compliance question
+
+Hey [First Name],
+
+Saw [Facility] in [City] has an open discharge issue on the EPA ECHO database tied to your [permit type].
+
+Usually when an enforcement flag hits, plant managers are scrambling to line up remediation and testing vendors before the compliance deadline.
+
+We track ECHO actions and NPDES renewals in [State] and route facilities under active deadline straight to your team.
+
+You only pay $400 per qualified facility walkthrough booked. No monthly retainer.
+
+Can I send you the list of flagged facilities in your radius for free?`
+      },
+      hvac: {
+        title: "Commercial HVAC & Mechanical",
+        size: "55,000",
+        intercept: "We scrape commercial mechanical permits and county GIS ownership-change records to find properties with aging rooftop units and new owners. Ownership changes and tenant build-outs trigger HVAC replacement and recurring service-contract demand.",
+        signals: [
+          "Commercial mechanical & building permit portals",
+          "County GIS property ownership-change records",
+          "ENERGY STAR / benchmarking ordinance filings",
+          "Commercial real-estate lease-turnover listings"
+        ],
+        swipe: `Subject: rooftop unit question
+
+Hey [First Name],
+
+Saw the property at [Street] in [City] just changed ownership — and the rooftop units look original to a 2000s-era build.
+
+New owners almost always re-evaluate HVAC service contracts and aging equipment in the first 90 days. Most commercial mechanical shops never catch these in time.
+
+We track ownership changes and mechanical permits in [State] and book your estimators onto fresh sites for replacement and service-contract bids.
+
+Performance only: $300 per qualified walkthrough booked.
+
+Can I send you the 12 recently-transacted commercial properties in your area for free?`
+      },
+      fire: {
+        title: "Fire & Life Safety / Sprinkler",
+        size: "9,000",
+        intercept: "We scrape fire-marshal inspection records and code-violation portals to find commercial buildings with failed or overdue fire inspections. A failed inspection legally requires sprinkler, alarm, and suppression remediation on a strict deadline.",
+        signals: [
+          "Local fire-marshal inspection & violation records",
+          "NFPA 25 inspection-due commercial registries",
+          "Commercial sprinkler / alarm permit portals",
+          "State fire-suppression contractor licensure boards"
+        ],
+        swipe: `Subject: quick inspection question
+
+Hey [First Name],
+
+Saw the building at [Street] in [City] has an overdue / failed fire-marshal inspection on record.
+
+When a building fails, the owner legally has a deadline to remediate sprinkler, alarm, or suppression systems — and they're usually calling around in a panic.
+
+We monitor fire-marshal records and NFPA 25 due-dates in [State] and route deadline-driven buildings straight to your estimators.
+
+You only pay $300 per qualified inspection or bid walkthrough booked.
+
+Can I send you the list of flagged buildings in your radius for free?`
       }
     };
 
@@ -2231,6 +2383,16 @@ Can I send you a quick 2-minute video on how we got this list of commercial faci
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') toggleModal(false);
     });
+
+    // Region-capture lead form -> prefilled mailto (no backend)
+    function submitLead(e) {
+      e.preventDefault();
+      const metro = (document.getElementById('lead-metro').value || '').trim() || '[Your Metro Area]';
+      const subject = encodeURIComponent('I want my 15 free leads');
+      const body = encodeURIComponent("Hey Ethan, I'm a commercial operator in " + metro + ". Send me my 15 free signal-leads!");
+      window.location.href = 'mailto:ethan@contractmotion.com?subject=' + subject + '&body=' + body;
+      return false;
+    }
 
     // Trigger typing loop on load
     window.onload = function() {
