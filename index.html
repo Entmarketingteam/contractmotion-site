@@ -1481,11 +1481,27 @@
 
     /* ---- Region-capture lead form (final CTA) ---- */
     .lead-form {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 12px;
-      max-width: 560px;
+      max-width: 620px;
       margin: 0 auto;
     }
+    .lead-form .btn { grid-column: 1 / -1; width: 100%; }
+    .lead-success {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 28px 32px;
+      border: 1px solid var(--accent);
+      border-radius: 12px;
+      background: var(--accent-dim2);
+      font-family: var(--font-mono);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text);
+      box-shadow: 0 0 24px rgba(0,255,148,0.08);
+    }
+    .lead-success b { color: var(--accent); }
     .lead-input {
       flex: 1;
       min-width: 0;
@@ -1505,7 +1521,7 @@
       box-shadow: inset 0 0 10px rgba(0,255,148,0.2), 0 0 0 3px rgba(0,255,148,0.12);
     }
     @media (max-width: 559px) {
-      .lead-form { flex-direction: column; }
+      .lead-form { grid-template-columns: 1fr; }
       .lead-input { padding: 16px 18px; }
       .lead-form .btn { width: 100%; }
     }
@@ -2037,10 +2053,12 @@ Can I send you the list of 15 properties for free?</div>
       <h2 class="section-title">Claim Your Metro-Niche Slot</h2>
       <p class="section-desc">Do not book a 30-minute sales call. Just click below, tell us your region, and we'll send you a custom list of 15 local high-intent targets for free to prove our scrapers are live.</p>
       
-      <form class="lead-form" onsubmit="return submitLead(event)">
-        <input type="text" id="lead-metro" class="lead-input" placeholder="Your metro area — e.g. Dallas, TX" autocomplete="address-level2" required />
+      <form class="lead-form" id="lead-cta-form" onsubmit="return submitLead(event)">
+        <input type="email" id="lead-email" class="lead-input" placeholder="Work email" autocomplete="email" required />
+        <input type="text" id="lead-metro" class="lead-input" placeholder="Your metro — e.g. Dallas, TX" autocomplete="address-level2" required />
         <button type="submit" class="btn btn-primary btn-large">Get My 15 Free Signal-Leads &rarr;</button>
       </form>
+      <div class="lead-success" id="lead-success" hidden></div>
       <div class="cta-subtext" style="margin-top:16px;">We typically deliver your custom local lead sheet within 24 hours.</div>
     </div>
   </section>
@@ -2384,13 +2402,67 @@ Can I send you the list of flagged buildings in your radius for free?`
       if (e.key === 'Escape') toggleModal(false);
     });
 
-    // Region-capture lead form -> prefilled mailto (no backend)
-    function submitLead(e) {
-      e.preventDefault();
-      const metro = (document.getElementById('lead-metro').value || '').trim() || '[Your Metro Area]';
-      const subject = encodeURIComponent('I want my 15 free leads');
-      const body = encodeURIComponent("Hey Ethan, I'm a commercial operator in " + metro + ". Send me my 15 free signal-leads!");
+    // Lead capture -> n8n webhook -> Airtable + Slack. mailto fallback so a
+    // lead is never lost if the request fails.
+    var LEAD_WEBHOOK = 'https://entagency.app.n8n.cloud/webhook/cm-direct-response-lead';
+
+    function leadUTM() {
+      var p = new URLSearchParams(window.location.search);
+      return {
+        utmSource: p.get('utm_source') || '',
+        utmMedium: p.get('utm_medium') || '',
+        utmCampaign: p.get('utm_campaign') || ''
+      };
+    }
+
+    function leadMailtoFallback(email, metro) {
+      var subject = encodeURIComponent('I want my 15 free leads');
+      var body = encodeURIComponent("Hey Ethan, I'm a commercial operator in " + (metro || '[Your Metro Area]') + " (" + email + "). Send me my 15 free signal-leads!");
       window.location.href = 'mailto:ethan@contractmotion.com?subject=' + subject + '&body=' + body;
+    }
+
+    function showLeadSuccess(metro) {
+      var form = document.getElementById('lead-cta-form');
+      var ok = document.getElementById('lead-success');
+      if (form) form.hidden = true;
+      if (ok) {
+        ok.hidden = false;
+        ok.innerHTML = "&#10003; <b>You're in.</b> We're pulling 15 high-intent signal-leads for <b>" +
+          (metro || 'your metro') + "</b> and will email them to you within 24 hours.";
+      }
+    }
+
+    async function submitLead(e) {
+      e.preventDefault();
+      var email = (document.getElementById('lead-email').value || '').trim();
+      var metro = (document.getElementById('lead-metro').value || '').trim();
+      var btn = e.target.querySelector('button[type="submit"]');
+      var utm = leadUTM();
+      var payload = {
+        email: email,
+        metro: metro,
+        source: 'direct-response lander',
+        siteSlug: window.location.pathname.replace(/^\//, '') || 'index',
+        utmSource: utm.utmSource,
+        utmMedium: utm.utmMedium,
+        utmCampaign: utm.utmCampaign,
+        pageUrl: window.location.href,
+        submittedAt: new Date().toISOString()
+      };
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+      try {
+        var r = await fetch(LEAD_WEBHOOK, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (!r.ok) throw new Error('status ' + r.status);
+        showLeadSuccess(metro);
+      } catch (err) {
+        leadMailtoFallback(email, metro);
+      } finally {
+        if (btn) { btn.disabled = false; btn.innerHTML = 'Get My 15 Free Signal-Leads &rarr;'; }
+      }
       return false;
     }
 
