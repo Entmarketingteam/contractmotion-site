@@ -65,6 +65,20 @@
     });
   });
 
+  /* ---- Lead attribution metadata (shared by both forms) ---- */
+  function leadMeta() {
+    const p = new URLSearchParams(window.location.search);
+    const slug = window.location.pathname.replace(/^\//, '').replace(/\.html$/, '') || 'index';
+    return {
+      siteSlug: slug,
+      pageUrl: window.location.href,
+      utmSource: p.get('utm_source') || '',
+      utmMedium: p.get('utm_medium') || '',
+      utmCampaign: p.get('utm_campaign') || '',
+      submittedAt: new Date().toISOString()
+    };
+  }
+
   /* ---- Signal Audit form ---- */
   const auditForm = document.getElementById('auditForm');
   const formSuccess = document.getElementById('formSuccess');
@@ -94,7 +108,7 @@
       btn.disabled = true;
       btn.textContent = 'Submitting...';
 
-      const payload = { company, email, role, region, revenue };
+      const payload = Object.assign({ company, email, role, region, revenue }, leadMeta());
 
       fetch('https://entagency.app.n8n.cloud/webhook/contractmotion-signal-audit', {
         method: 'POST',
@@ -138,7 +152,7 @@
       fetch('https://entagency.app.n8n.cloud/webhook/contractmotion-subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
+        body: JSON.stringify(Object.assign({ email }, leadMeta()))
       })
         .catch(function () {
           return { ok: true };
