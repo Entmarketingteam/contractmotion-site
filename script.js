@@ -90,19 +90,28 @@
       e.preventDefault();
       formError.textContent = '';
 
-      const company = auditForm.querySelector('#company').value.trim();
-      const emailEl = auditForm.querySelector('#workEmail');
-      const email = emailEl ? emailEl.value.trim() : '';
-      const role = auditForm.querySelector('#role').value;
-      const regionEl = auditForm.querySelector('#region') || auditForm.querySelector('#sector') || auditForm.querySelector('#project-type') || auditForm.querySelector('#facility-type') || auditForm.querySelector('#specialty');
-      const region = regionEl ? regionEl.value : 'n/a';
-      const revenue = auditForm.querySelector('#revenue').value;
+      const val = function (sel) { const el = auditForm.querySelector(sel); return el ? el.value.trim() : ''; };
+      const company = val('#company');
+      const email = val('#workEmail') || val('#email');
+      const role = val('#role');
+      const revenueEl = auditForm.querySelector('#revenue');
+      const revenue = revenueEl ? revenueEl.value : '';
+      // Capture every vertical-specific select (#trade, #sector, #product, #naics, etc.)
+      // generically so no page's segmentation field is silently dropped.
+      const segs = [];
+      auditForm.querySelectorAll('select').forEach(function (s) {
+        if (s.id === 'role' || s.id === 'revenue') return;
+        if (s.value) segs.push((s.id || 'detail') + ': ' + s.value);
+      });
+      const region = segs.join('; ') || 'n/a';
 
       if (!company) { formError.textContent = 'Company name is required.'; return; }
       if (!email || !isValidEmail(email)) { formError.textContent = 'A valid work email is required.'; return; }
       if (!role) { formError.textContent = 'Please select your role.'; return; }
-      if (regionEl && !region) { formError.textContent = 'Please select an option.'; return; }
-      if (!revenue) { formError.textContent = 'Please select your revenue range.'; return; }
+      if (revenueEl && !revenue) { formError.textContent = 'Please select your revenue range.'; return; }
+      let incomplete = false;
+      auditForm.querySelectorAll('select').forEach(function (s) { if (!s.value) incomplete = true; });
+      if (incomplete) { formError.textContent = 'Please complete all fields.'; return; }
 
       const btn = auditForm.querySelector('button[type="submit"]');
       btn.disabled = true;

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://contractmotion.com/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://contractmotion.com/direct-response</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
   <url><loc>https://contractmotion.com/industries</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
   <url><loc>https://contractmotion.com/custom-builders</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://contractmotion.com/commercial-trades</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
