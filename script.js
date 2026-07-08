@@ -197,4 +197,176 @@
       observer.observe(el);
     });
   }
+
+  /* ---- Leadbird Exit Intent & Delay Popup ---- */
+  function initExitPopup() {
+    // If popup was already closed or submitted in this session or localStorage, don't show it
+    if (localStorage.getItem('cm_exit_popup_closed') === 'true') return;
+
+    // Do not show on the privacy policy or success states
+    if (window.location.pathname.indexOf('privacy') !== -1) return;
+
+    // Inject styles dynamically if not already present
+    if (!document.getElementById('exit-popup-styles')) {
+      const style = document.createElement('style');
+      style.id = 'exit-popup-styles';
+      style.textContent = `
+        .exit-overlay {
+          position: fixed; inset: 0; background: rgba(13, 17, 23, 0.95); backdrop-filter: blur(8px);
+          z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px;
+          opacity: 0; transition: opacity 0.3s ease;
+        }
+        .exit-overlay.is-open { display: flex; opacity: 1; }
+        .exit-card {
+          background: #161B22; border: 2px solid #00FF94; border-radius: 12px; max-width: 520px; width: 100%;
+          padding: 36px; box-shadow: 0 25px 70px rgba(0,0,0,0.9), 0 0 30px rgba(0, 255, 148, 0.15);
+          position: relative; transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .exit-overlay.is-open .exit-card { transform: scale(1); }
+        .exit-close {
+          position: absolute; top: 12px; right: 16px; background: transparent; border: none;
+          color: #8B949E; font-size: 28px; cursor: pointer; transition: color 0.2s; line-height: 1;
+        }
+        .exit-close:hover { color: #FF3366; }
+        .exit-title { font-family: 'JetBrains Mono', monospace; color: #FFF; font-size: 22px; font-weight: 800; margin-bottom: 12px; line-height: 1.3; }
+        .exit-desc { color: #8B949E; font-size: 14.5px; line-height: 1.5; margin-bottom: 20px; }
+        .exit-bullets { margin-bottom: 24px; list-style: none; padding: 0; }
+        .exit-bullets li { font-family: 'JetBrains Mono', monospace; font-size: 13.5px; color: #00FF94; margin-bottom: 8px; padding-left: 18px; position: relative; }
+        .exit-bullets li::before { content: '✓'; position: absolute; left: 0; color: #00FF94; font-weight: bold; }
+        .exit-form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; text-align: left; }
+        .exit-form-group label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8B949E; text-transform: uppercase; letter-spacing: 0.05em; }
+        .exit-form-input { background: #1C2128; border: 1px solid #30363D; border-radius: 6px; padding: 12px 14px; color: #FFF; font-size: 14px; transition: border-color 0.2s; }
+        .exit-form-input:focus { outline: none; border-color: #00FF94; }
+        .exit-submit-btn { width: 100%; background: #00FF94; color: #0D1117; border: none; border-radius: 6px; padding: 14px; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 14px; cursor: pointer; transition: transform 0.1s, background-color 0.2s; }
+        .exit-submit-btn:hover { transform: translateY(-1px); background: #00e682; }
+        .exit-success-block { text-align: center; padding: 20px 0; }
+        .exit-success-icon { font-size: 48px; color: #00FF94; margin-bottom: 16px; }
+      `;
+      document.head.appendChild(style);
+    }
+
+    // Create and append the markup
+    const overlay = document.createElement('div');
+    overlay.className = 'exit-overlay';
+    overlay.id = 'exit-popup';
+    overlay.innerHTML = `
+      <div class="exit-card">
+        <button class="exit-close" id="exit-close-btn">&times;</button>
+        <div id="exit-popup-content">
+          <h3 class="exit-title">What if you didn't pay until we actually got you a lead?</h3>
+          <p class="exit-desc">We'll build and launch your outbound campaigns for free. You only pay when we deliver your first qualified lead.</p>
+          <ul class="exit-bullets">
+            <li>No setup fees</li>
+            <li>No contracts</li>
+            <li>No risk</li>
+          </ul>
+          <form id="exit-form-el" novalidate>
+            <div class="exit-form-group">
+              <label for="exit-email">Work Email</label>
+              <input type="email" class="exit-form-input" id="exit-email" placeholder="you@company.com" required />
+            </div>
+            <div class="exit-form-group" id="exit-metro-group">
+              <label for="exit-metro">Your Target Market / Region</label>
+              <input type="text" class="exit-form-input" id="exit-metro" placeholder="e.g. Dallas, TX or All US" required />
+            </div>
+            <button type="submit" class="exit-submit-btn">Start My Free Campaign &rarr;</button>
+          </form>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    let popupShown = false;
+
+    function showPopup() {
+      if (popupShown) return;
+      if (localStorage.getItem('cm_exit_popup_closed') === 'true') return;
+      popupShown = true;
+      overlay.style.display = 'flex';
+      // force reflow
+      void overlay.offsetWidth;
+      overlay.classList.add('is-open');
+    }
+
+    function closePopup() {
+      overlay.classList.remove('is-open');
+      localStorage.setItem('cm_exit_popup_closed', 'true');
+      setTimeout(function () {
+        overlay.style.display = 'none';
+      }, 300);
+    }
+
+    document.getElementById('exit-close-btn').addEventListener('click', closePopup);
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closePopup();
+    });
+
+    // Detect exit intent
+    document.addEventListener('mouseleave', function (e) {
+      if (e.clientY < 20) {
+        showPopup();
+      }
+    });
+
+    // Trigger after 20 seconds delay
+    setTimeout(showPopup, 20000);
+
+    // Form submission
+    const form = document.getElementById('exit-form-el');
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const email = document.getElementById('exit-email').value.trim();
+      const metro = document.getElementById('exit-metro').value.trim();
+      const submitBtn = form.querySelector('button[type="submit"]');
+
+      if (!email || !isValidEmail(email)) {
+        alert('Please enter a valid work email.');
+        return;
+      }
+      if (!metro) {
+        alert('Please enter your target market.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      // Reuse lead attribution metadata
+      const payload = Object.assign({
+        email: email,
+        metro: metro,
+        source: 'exit-intent-popup',
+      }, leadMeta());
+
+      try {
+        const r = await fetch('https://entagency.app.n8n.cloud/webhook/cm-direct-response-lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (!r.ok) throw new Error();
+
+        document.getElementById('exit-popup-content').innerHTML = `
+          <div class="exit-success-block">
+            <div class="exit-success-icon">✓</div>
+            <h3 class="exit-title">You're on the list!</h3>
+            <p class="exit-desc">We are analyzing <strong>` + metro + `</strong>. We will reach out to build and launch your free campaign within 24 hours.</p>
+          </div>
+        `;
+        localStorage.setItem('cm_exit_popup_closed', 'true');
+        setTimeout(closePopup, 3000);
+      } catch (err) {
+        // Mailto fallback
+        const subject = encodeURIComponent('Start My Free Campaign');
+        const body = encodeURIComponent('Hey Ethan,\n\nI want to start my free campaign! No setup fees, no contracts, no risk. I\'m a commercial operator in ' + metro + ' (' + email + '). Let\'s build and launch our outbound campaigns for free.\n\nTalk soon!');
+        window.location.href = 'mailto:ethan@contractmotion.com?subject=' + subject + '&body=' + body;
+        closePopup();
+      }
+    });
+  }
+
+  // Run popup initialization on window load
+  window.addEventListener('load', function () {
+    setTimeout(initExitPopup, 1000);
+  });
 })();
