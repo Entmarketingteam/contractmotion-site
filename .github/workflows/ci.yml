@@ -20,8 +20,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Build check (static asset + nginx clean-route integrity)
+        run: npm run check-assets
+
       - name: Run tests
         run: npm test
 
-      - name: Build (Docker/nginx static site — verify image builds)
+      - name: Build (Docker/nginx static site — verify deploy image builds)
         run: docker build -t contractmotion-site:ci .
