@@ -49,6 +49,11 @@ for (const file of htmlFiles) {
     }
 
     const cleanRef = ref.split('?')[0].split('#')[0];
+    if (cleanRef === '' || cleanRef === '/') {
+      // Root path (with or without a hash anchor) — handled by nginx's
+      // catch-all "location /" block, which falls through to index.html.
+      continue;
+    }
     const hasExtension = path.extname(cleanRef) !== '';
 
     if (hasExtension) {
