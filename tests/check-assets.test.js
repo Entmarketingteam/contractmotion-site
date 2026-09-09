@@ -22,13 +22,25 @@ describe('scripts/check-assets.js (static site link/asset integrity)', () => {
     expect(result.stdout).toMatch(/all references resolve/);
   });
 
-  test('fails when an HTML file links to a clean route with no nginx.conf rewrite', () => {
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cm-site-check-'));
-    fs.cpSync(ROOT, tmpDir, {
-      recursive: true,
-      filter: (src) => !src.includes(`${path.sep}node_modules${path.sep}`) && !src.endsWith(`${path.sep}node_modules`),
-    });
+// Only the files scripts/check-assets.js actually reads: the top-level HTML
+// pages, nginx.conf (for the clean-route table), and the real static assets
+// they reference, so a fast, isolated fixture dir can stand in for the repo.
+function makeFixtureDir() {
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cm-site-check-'));
+  const htmlFiles = fs.readdirSync(ROOT).filter((f) => f.endsWith('.html'));
+  for (const file of htmlFiles) {
+    fs.copyFileSync(path.join(ROOT, file), path.join(tmpDir, file));
+  }
+  fs.copyFileSync(path.join(ROOT, 'nginx.conf'), path.join(tmpDir, 'nginx.conf'));
+  fs.copyFileSync(path.join(ROOT, 'script.js'), path.join(tmpDir, 'script.js'));
+  fs.copyFileSync(path.join(ROOT, 'style.css'), path.join(tmpDir, 'style.css'));
+  fs.copyFileSync(path.join(ROOT, 'favicon.ico'), path.join(tmpDir, 'favicon.ico'));
+  fs.cpSync(path.join(ROOT, 'images'), path.join(tmpDir, 'images'), { recursive: true });
+  return tmpDir;
+}
 
+  test('fails when an HTML file links to a clean route with no nginx.conf rewrite', () => {
+    const tmpDir = makeFixtureDir();
     const target = path.join(tmpDir, 'data-center.html');
     const original = fs.readFileSync(target, 'utf8');
     fs.writeFileSync(target, original.replace('href="/industries"', 'href="/industries-typo"'));
@@ -41,12 +53,7 @@ describe('scripts/check-assets.js (static site link/asset integrity)', () => {
   });
 
   test('fails when an HTML file references a missing local file', () => {
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cm-site-check-'));
-    fs.cpSync(ROOT, tmpDir, {
-      recursive: true,
-      filter: (src) => !src.includes(`${path.sep}node_modules${path.sep}`) && !src.endsWith(`${path.sep}node_modules`),
-    });
-
+    const tmpDir = makeFixtureDir();
     const target = path.join(tmpDir, 'data-center.html');
     const original = fs.readFileSync(target, 'utf8');
     fs.writeFileSync(target, original.replace('src="script.js"', 'src="scirpt.js"'));
