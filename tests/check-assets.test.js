@@ -40,6 +40,11 @@ function makeFixtureDir() {
   fs.copyFileSync(path.join(ROOT, 'style.css'), path.join(tmpDir, 'style.css'));
   fs.copyFileSync(path.join(ROOT, 'favicon.ico'), path.join(tmpDir, 'favicon.ico'));
   fs.cpSync(path.join(ROOT, 'images'), path.join(tmpDir, 'images'), { recursive: true });
+  fs.mkdirSync(path.join(tmpDir, 'scripts'));
+  fs.copyFileSync(
+    path.join(ROOT, 'scripts', 'check-assets.js'),
+    path.join(tmpDir, 'scripts', 'check-assets.js')
+  );
   return tmpDir;
 }
 
