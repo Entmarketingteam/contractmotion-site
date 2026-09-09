@@ -3,12 +3,16 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
-const SCRIPT = path.join(__dirname, '..', 'scripts', 'check-assets.js');
 const ROOT = path.join(__dirname, '..');
 
-function run(cwd) {
+// check-assets.js resolves its target directory from its own __dirname (by
+// design — it always audits "the repo it ships in"), so to point it at an
+// isolated fixture dir instead of the real repo, the script itself has to
+// live under <fixtureDir>/scripts/.
+function run(fixtureDir) {
+  const script = path.join(fixtureDir, 'scripts', 'check-assets.js');
   try {
-    const stdout = execFileSync('node', [SCRIPT], { cwd, encoding: 'utf8' });
+    const stdout = execFileSync('node', [script], { encoding: 'utf8' });
     return { status: 0, stdout };
   } catch (err) {
     return { status: err.status, stdout: err.stdout, stderr: err.stderr };
