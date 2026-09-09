@@ -1,10 +1,5 @@
 const { loadPage } = require('./helpers/loadPage');
 
-function triggerPopupInit() {
-  window.dispatchEvent(new Event('load'));
-  jest.advanceTimersByTime(1000);
-}
-
 function submitExitForm() {
   document.getElementById('exit-form-el').dispatchEvent(
     new Event('submit', { bubbles: true, cancelable: true })
