@@ -1,0 +1,14 @@
+{
+  "name": "contractmotion-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static marketing site for ContractMotion.com",
+  "scripts": {
+    "test": "jest",
+    "build": "node scripts/build-check.js"
+  },
+  "devDependencies": {
+    "jest": "^30.5.1",
+    "jest-environment-jsdom": "^30.5.1"
+  }
+}
