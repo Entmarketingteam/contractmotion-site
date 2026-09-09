@@ -69,6 +69,11 @@ describe('Exit-intent lead capture popup (data-center.html)', () => {
   });
 
   test('adversarial: falls back to a mailto link when the webhook request fails', async () => {
+    // jsdom refuses to perform real navigation; swap in a plain writable
+    // stand-in so we can observe the href the code assigns.
+    const fakeLocation = { href: window.location.href };
+    Object.defineProperty(window, 'location', { writable: true, value: fakeLocation });
+
     global.fetch = jest.fn().mockRejectedValue(new Error('network down'));
     document.getElementById('exit-email').value = 'ops@acme.com';
     document.getElementById('exit-metro').value = 'Dallas, TX';
@@ -77,7 +82,7 @@ describe('Exit-intent lead capture popup (data-center.html)', () => {
     await Promise.resolve();
     await Promise.resolve();
 
-    expect(window.location.href).toContain('mailto:ethan@contractmotion.com');
-    expect(window.location.href).toContain(encodeURIComponent('Dallas, TX'));
+    expect(fakeLocation.href).toContain('mailto:ethan@contractmotion.com');
+    expect(fakeLocation.href).toContain(encodeURIComponent('Dallas, TX'));
   });
 });
