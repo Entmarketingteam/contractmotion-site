@@ -65,20 +65,31 @@ describe('Exit-intent lead capture popup (data-center.html)', () => {
   });
 
   test('adversarial: falls back to a mailto link when the webhook request fails', async () => {
-    // jsdom refuses to perform real navigation; swap in a plain writable
-    // stand-in so we can observe the href the code assigns.
-    const fakeLocation = { href: window.location.href };
-    Object.defineProperty(window, 'location', { writable: true, value: fakeLocation });
+    // jsdom's window.location own-property is non-configurable (by design, for
+    // security) and real navigation isn't implemented, so intercept the `href`
+    // setter on Location.prototype instead of trying to replace `window.location`.
+    const locationProto = Object.getPrototypeOf(window.location);
+    const originalDescriptor = Object.getOwnPropertyDescriptor(locationProto, 'href');
+    let capturedHref = null;
+    Object.defineProperty(locationProto, 'href', {
+      configurable: true,
+      get() { return originalDescriptor.get.call(this); },
+      set(value) { capturedHref = value; },
+    });
 
-    global.fetch = jest.fn().mockRejectedValue(new Error('network down'));
-    document.getElementById('exit-email').value = 'ops@acme.com';
-    document.getElementById('exit-metro').value = 'Dallas, TX';
-    submitExitForm();
-    await Promise.resolve();
-    await Promise.resolve();
-    await Promise.resolve();
+    try {
+      global.fetch = jest.fn().mockRejectedValue(new Error('network down'));
+      document.getElementById('exit-email').value = 'ops@acme.com';
+      document.getElementById('exit-metro').value = 'Dallas, TX';
+      submitExitForm();
+      await Promise.resolve();
+      await Promise.resolve();
+      await Promise.resolve();
 
-    expect(fakeLocation.href).toContain('mailto:ethan@contractmotion.com');
-    expect(fakeLocation.href).toContain(encodeURIComponent('Dallas, TX'));
+      expect(capturedHref).toContain('mailto:ethan@contractmotion.com');
+      expect(capturedHref).toContain(encodeURIComponent('Dallas, TX'));
+    } finally {
+      Object.defineProperty(locationProto, 'href', originalDescriptor);
+    }
   });
 });
