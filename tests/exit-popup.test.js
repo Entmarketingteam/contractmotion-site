@@ -11,8 +11,9 @@ describe('Exit-intent lead capture popup (data-center.html)', () => {
     jest.useFakeTimers();
     window.localStorage.clear();
     window.alert = jest.fn();
-    loadPage('data-center.html', { url: 'http://localhost/data-center.html' });
-    triggerPopupInit();
+    const { triggerLoad } = loadPage('data-center.html', { url: 'http://localhost/data-center.html' });
+    triggerLoad();
+    jest.advanceTimersByTime(1000);
   });
 
   afterEach(() => {
