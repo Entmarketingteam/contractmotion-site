@@ -70,6 +70,11 @@ describe('Exit-intent lead capture popup (data-center.html)', () => {
     // string can't be captured here. Assert the fallback branch actually ran
     // instead: the popup is dismissed (matching the mailto code path) but the
     // success block is never rendered (which only the happy path does).
+    // jsdom logs a "Not implemented: navigation" error for the mailto:// href
+    // assignment below (expected — it's not real navigation); suppress the
+    // noise for this one test only.
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+
     global.fetch = jest.fn().mockRejectedValue(new Error('network down'));
     document.getElementById('exit-email').value = 'ops@acme.com';
     document.getElementById('exit-metro').value = 'Dallas, TX';
@@ -81,5 +86,7 @@ describe('Exit-intent lead capture popup (data-center.html)', () => {
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(document.getElementById('exit-popup-content').innerHTML).not.toContain('exit-success-block');
     expect(window.localStorage.getItem('cm_exit_popup_closed')).toBe('true');
+
+    consoleErrorSpy.mockRestore();
   });
 });
