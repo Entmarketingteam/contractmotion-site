@@ -4,8 +4,7 @@
   "private": true,
   "description": "Static marketing site for ContractMotion.com",
   "scripts": {
-    "test": "jest",
-    "build": "node scripts/build-check.js"
+    "test": "jest"
   },
   "devDependencies": {
     "jest": "^30.5.1",
