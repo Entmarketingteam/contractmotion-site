@@ -53,7 +53,15 @@ const REF_PATTERN = /(?:src|href)="([^"]+)"/g;
 const errors = [];
 
 for (const file of htmlFiles) {
-  const contents = fs.readFileSync(path.join(ROOT, file), 'utf8');
+  let contents;
+  try {
+    contents = fs.readFileSync(path.join(ROOT, file), 'utf8');
+  } catch (err) {
+    // One unreadable file shouldn't hide broken-reference problems in every
+    // other file in the same run — quarantine it and keep going.
+    errors.push(`${file} -> could not be read (${err.message})`);
+    continue;
+  }
   let match;
   while ((match = REF_PATTERN.exec(contents)) !== null) {
     const ref = match[1];
