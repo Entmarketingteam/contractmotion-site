@@ -394,12 +394,16 @@
       }, leadMeta());
 
       try {
-        const r = await fetch('https://entagency.app.n8n.cloud/webhook/cm-direct-response-lead', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        if (!r.ok) throw new Error();
+        const r = await fetchExitLeadWithRetry(
+          'https://entagency.app.n8n.cloud/webhook/cm-direct-response-lead',
+          payload,
+          false
+        );
+        if (!r.ok) {
+          const bodyText = await r.text().catch(function () { return '(could not read response body)'; });
+          console.error('[exit-popup] webhook failed', r.status, bodyText);
+          throw new Error('webhook returned ' + r.status);
+        }
 
         document.getElementById('exit-popup-content').innerHTML = `
           <div class="exit-success-block">
