@@ -136,6 +136,26 @@
     );
   }
 
+  // Exit-popup variant: same timeout + 429-only-retry policy as
+  // submitLeadWithLogging, but this call site needs the real Response (or a
+  // thrown/rejected error) back so it can pick between the success block and
+  // the mailto fallback — so this one resolves/rejects normally instead of
+  // swallowing failures itself.
+  async function fetchExitLeadWithRetry(url, payload, isRetry) {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(LEAD_FETCH_TIMEOUT_MS)
+    });
+    if (response.status === 429 && !isRetry) {
+      const delay = getRetryAfterMs(response);
+      await new Promise(function (resolve) { setTimeout(resolve, delay); });
+      return fetchExitLeadWithRetry(url, payload, true);
+    }
+    return response;
+  }
+
   /* ---- Signal Audit form ---- */
   const auditForm = document.getElementById('auditForm');
   const formSuccess = document.getElementById('formSuccess');
