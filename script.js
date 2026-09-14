@@ -215,14 +215,12 @@
       btn.disabled = true;
       btn.textContent = 'Subscribing...';
 
-      fetch('https://entagency.app.n8n.cloud/webhook/contractmotion-subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.assign({ email }, leadMeta()))
-      })
-        .catch(function () {
-          return { ok: true };
-        })
+      submitLeadWithLogging(
+        'https://entagency.app.n8n.cloud/webhook/contractmotion-subscribe',
+        Object.assign({ email }, leadMeta()),
+        'subscribe-form',
+        false
+      )
         .then(function () {
           subscribeForm.style.display = 'none';
           if (subNote) subNote.style.display = 'none';
