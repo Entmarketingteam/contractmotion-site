@@ -79,6 +79,63 @@
     };
   }
 
+  /* ---- Shared lead-webhook fetch helper (audit + subscribe forms) ----
+     Every lead POST here is a non-idempotent create (one webhook call =
+     one lead/subscriber record downstream in n8n), so on failure we log
+     loudly but retry at most once, and ONLY on 429 (rate-limited — nothing
+     was processed yet, so a retry is safe). Any other non-2xx, a timeout,
+     or a network error gets logged and the caller still proceeds to show
+     the success UI (a lost lead is a real business cost; a transient-blip
+     false "success" screen is the deliberate, acceptable tradeoff — a
+     duplicate submission from retrying a 5xx would be worse). ---- */
+  var LEAD_FETCH_TIMEOUT_MS = 8000;
+  var RETRY_DELAY_MS = 1500;
+
+  function getRetryAfterMs(response) {
+    try {
+      var header = response && response.headers && typeof response.headers.get === 'function'
+        ? response.headers.get('Retry-After')
+        : null;
+      var seconds = header ? Number(header) : NaN;
+      if (!isNaN(seconds) && seconds > 0) return seconds * 1000;
+    } catch (e) {
+      // Malformed/unreadable header — fall back to the default delay below.
+    }
+    return RETRY_DELAY_MS;
+  }
+
+  function postLeadWebhook(url, payload) {
+    return fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(LEAD_FETCH_TIMEOUT_MS)
+    });
+  }
+
+  // Resolves once the lead has either succeeded, or failed and been logged —
+  // it never rejects, so callers can always chain straight into their
+  // success UI without their own try/catch.
+  function submitLeadWithLogging(url, payload, tag, isRetry) {
+    return postLeadWebhook(url, payload).then(
+      function (response) {
+        if (response.ok) return;
+        if (response.status === 429 && !isRetry) {
+          var delay = getRetryAfterMs(response);
+          return new Promise(function (resolve) { setTimeout(resolve, delay); })
+            .then(function () { return submitLeadWithLogging(url, payload, tag, true); });
+        }
+        return response.text().catch(function () { return '(could not read response body)'; })
+          .then(function (bodyText) {
+            console.error('[' + tag + '] webhook returned', response.status, bodyText);
+          });
+      },
+      function (err) {
+        console.error('[' + tag + '] request failed', err);
+      }
+    );
+  }
+
   /* ---- Signal Audit form ---- */
   const auditForm = document.getElementById('auditForm');
   const formSuccess = document.getElementById('formSuccess');
