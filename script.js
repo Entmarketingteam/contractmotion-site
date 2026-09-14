@@ -290,6 +290,73 @@
     });
   }
 
+  /* ---- Healthcare referral-intake form (healthcare.html) ----
+     healthcare.html ships its own inline <script> block, after this file's
+     <script src="script.js"> tag, that registers a SECOND submit listener
+     on #healthcareForm using the exact buggy pattern this file was hardened
+     against: `fetch(...).catch(() => ({ok:true})).then(() => showSuccess())`
+     — no response.ok check, no logging, no timeout, so any non-2xx (or a
+     down webhook) silently drops the lead. That inline block is HTML, not
+     JS, and out of scope for this pass — this file is loaded first (classic
+     scripts run in document order) and registers first, so on submit this
+     listener fires first; calling stopImmediatePropagation() here stops the
+     inline listener (already registered on the same element by page-load
+     time) from ever running, so the legacy fetch never fires and the lead
+     only goes out once, through the shared, error-checked helper. */
+  const healthcareForm = document.getElementById('healthcareForm');
+  const hcSuccess = document.getElementById('hcFormSuccess');
+  const hcError = document.getElementById('hcFormError');
+
+  if (healthcareForm) {
+    healthcareForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      if (hcError) hcError.textContent = '';
+
+      const val = function (sel) {
+        const el = healthcareForm.querySelector(sel);
+        return el ? el.value.trim() : '';
+      };
+      const practice = val('#hc-practice');
+      const email = val('#hc-email');
+      const typeEl = healthcareForm.querySelector('#hc-type');
+      const type = typeEl ? typeEl.value : '';
+      const stateEl = healthcareForm.querySelector('#hc-state');
+      const state = stateEl ? stateEl.value : '';
+      const challenge = val('#hc-challenge');
+
+      if (!practice) { if (hcError) hcError.textContent = 'Practice name is required.'; return; }
+      if (!email || !isValidEmail(email)) { if (hcError) hcError.textContent = 'A valid email is required.'; return; }
+      if (!type) { if (hcError) hcError.textContent = 'Please select your practice type.'; return; }
+      if (!state) { if (hcError) hcError.textContent = 'Please select your state.'; return; }
+
+      const btn = healthcareForm.querySelector('button[type="submit"]');
+      if (btn) { btn.disabled = true; btn.textContent = 'Submitting…'; }
+
+      const payload = Object.assign(
+        { practice, email, type, state, challenge, source: 'healthcare.contractmotion.com' },
+        leadMeta()
+      );
+
+      submitLeadWithLogging(
+        'https://entagency.app.n8n.cloud/webhook/healthcare-referral-intake',
+        payload,
+        'healthcare-form',
+        false
+      )
+        // Same deliberate tradeoff as the audit/subscribe forms: still show
+        // success on failure (it's logged above) rather than scare away a
+        // real lead over a transient blip.
+        .then(function () {
+          healthcareForm.style.display = 'none';
+          if (hcSuccess) {
+            hcSuccess.style.display = 'block';
+            hcSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        });
+    });
+  }
+
   /* ---- Utility ---- */
   function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
