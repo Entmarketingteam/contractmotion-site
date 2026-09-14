@@ -23,6 +23,13 @@ try {
   console.error(`Could not read site root directory at ${ROOT}: ${err.message}`);
   process.exit(1);
 }
+if (htmlFiles.length === 0) {
+  console.error(
+    `No .html files found in ${ROOT} — check-assets has nothing to verify; this is a ` +
+    `misconfiguration, not a pass.`
+  );
+  process.exit(1);
+}
 
 const nginxPath = path.join(ROOT, 'nginx.conf');
 if (!fs.existsSync(nginxPath)) {
