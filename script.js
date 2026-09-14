@@ -435,6 +435,7 @@
         localStorage.setItem('cm_exit_popup_closed', 'true');
         setTimeout(closePopup, 3000);
       } catch (err) {
+        console.error('[exit-popup] network error', err);
         // Mailto fallback
         const subject = encodeURIComponent('Start My Free Campaign');
         const body = encodeURIComponent('Hey Ethan,\n\nI want to start my free campaign! No setup fees, no contracts, no risk. I\'m a commercial operator in ' + metro + ' (' + email + '). Let\'s build and launch our outbound campaigns for free.\n\nTalk soon!');
