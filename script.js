@@ -159,8 +159,10 @@
         if (response.ok) return;
         if (response.status === 429 && !isRetry) {
           var delay = getRetryAfterMs(response);
-          return new Promise(function (resolve) { setTimeout(resolve, delay); })
-            .then(function () { return submitLeadWithLogging(url, payload, tag, true); });
+          if (delay !== null) {
+            return new Promise(function (resolve) { setTimeout(resolve, delay); })
+              .then(function () { return submitLeadWithLogging(url, payload, tag, true); });
+          }
         }
         return response.text().catch(function () { return '(could not read response body)'; })
           .then(function (bodyText) {
