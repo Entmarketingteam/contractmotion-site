@@ -90,14 +90,44 @@
      duplicate submission from retrying a 5xx would be worse). ---- */
   var LEAD_FETCH_TIMEOUT_MS = 8000;
   var RETRY_DELAY_MS = 1500;
+  // Ceiling on how long a visitor's submit button may sit disabled waiting
+  // on a 429 retry. n8n Cloud sits behind Cloudflare, whose rate-limit 429s
+  // routinely carry a Retry-After of 60s+ — honoring that verbatim would
+  // leave the button stuck on "Submitting..." for minutes, which is exactly
+  // the kind of visible, broken-looking failure this whole flow exists to
+  // avoid. Anything above the cap is treated as not worth retrying at all.
+  var MAX_RETRY_DELAY_MS = 3000;
 
+  // AbortSignal.timeout is Chrome 103 / Firefox 100 / Safari 16 (all
+  // mid-2022); the rest of this file only requires ~2017-era browsers, so
+  // calling it directly would silently raise the browser floor and, on an
+  // older browser, throw synchronously before any promise exists. Feature-
+  // detect once and omit the signal (no client-side timeout, request still
+  // completes or errors normally) when unavailable.
+  function makeTimeoutSignal(ms) {
+    if (typeof AbortSignal === 'undefined' || typeof AbortSignal.timeout !== 'function') {
+      return undefined;
+    }
+    try {
+      return AbortSignal.timeout(ms);
+    } catch (e) {
+      return undefined;
+    }
+  }
+
+  // Returns the ms to wait before retrying a 429, or null when the server's
+  // Retry-After demands longer than MAX_RETRY_DELAY_MS — callers must treat
+  // null as "do not retry" rather than blocking on a multi-minute wait.
   function getRetryAfterMs(response) {
     try {
       var header = response && response.headers && typeof response.headers.get === 'function'
         ? response.headers.get('Retry-After')
         : null;
       var seconds = header ? Number(header) : NaN;
-      if (!isNaN(seconds) && seconds > 0) return seconds * 1000;
+      if (!isNaN(seconds) && seconds > 0) {
+        var ms = seconds * 1000;
+        return ms <= MAX_RETRY_DELAY_MS ? ms : null;
+      }
     } catch (e) {
       // Malformed/unreadable header — fall back to the default delay below.
     }
@@ -105,12 +135,19 @@
   }
 
   function postLeadWebhook(url, payload) {
-    return fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      signal: AbortSignal.timeout(LEAD_FETCH_TIMEOUT_MS)
-    });
+    try {
+      return fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: makeTimeoutSignal(LEAD_FETCH_TIMEOUT_MS)
+      });
+    } catch (err) {
+      // Guard the documented never-rejects-synchronously contract below —
+      // any synchronous throw (e.g. an unsupported option) becomes a normal
+      // rejection instead of escaping the caller before a promise exists.
+      return Promise.reject(err);
+    }
   }
 
   // Resolves once the lead has either succeeded, or failed and been logged —
