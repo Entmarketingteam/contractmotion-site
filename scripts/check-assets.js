@@ -15,8 +15,30 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const htmlFiles = fs.readdirSync(ROOT).filter((f) => f.endsWith('.html'));
-const nginxConf = fs.readFileSync(path.join(ROOT, 'nginx.conf'), 'utf8');
+
+let htmlFiles;
+try {
+  htmlFiles = fs.readdirSync(ROOT).filter((f) => f.endsWith('.html'));
+} catch (err) {
+  console.error(`Could not read site root directory at ${ROOT}: ${err.message}`);
+  process.exit(1);
+}
+
+const nginxPath = path.join(ROOT, 'nginx.conf');
+if (!fs.existsSync(nginxPath)) {
+  console.error(
+    `nginx.conf not found at ${nginxPath} — check-assets requires it to resolve clean ` +
+    `routes. Run from the repo root (or a fixture dir that includes nginx.conf).`
+  );
+  process.exit(1);
+}
+let nginxConf;
+try {
+  nginxConf = fs.readFileSync(nginxPath, 'utf8');
+} catch (err) {
+  console.error(`Could not read nginx.conf at ${nginxPath}: ${err.message}`);
+  process.exit(1);
+}
 
 // Map clean routes declared in nginx.conf (e.g. "/data-center") to their
 // try_files target (e.g. "/data-center.html").
