@@ -176,15 +176,15 @@
 
       const payload = Object.assign({ company, email, role, region, revenue }, leadMeta());
 
-      fetch('https://entagency.app.n8n.cloud/webhook/contractmotion-signal-audit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      })
-        .catch(function () {
-          // Network error — still show success (submission logged server-side)
-          return { ok: true };
-        })
+      submitLeadWithLogging(
+        'https://entagency.app.n8n.cloud/webhook/contractmotion-signal-audit',
+        payload,
+        'audit-form',
+        false
+      )
+        // Still show success on failure (submission failure is logged above,
+        // server-side is the source of truth) — we deliberately don't scare
+        // away a real lead over a transient blip.
         .then(function () {
           auditForm.style.display = 'none';
           if (ctaNote) ctaNote.style.display = 'none';
