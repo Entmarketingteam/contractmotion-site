@@ -185,12 +185,14 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
-      signal: AbortSignal.timeout(LEAD_FETCH_TIMEOUT_MS)
+      signal: makeTimeoutSignal(LEAD_FETCH_TIMEOUT_MS)
     });
     if (response.status === 429 && !isRetry) {
       const delay = getRetryAfterMs(response);
-      await new Promise(function (resolve) { setTimeout(resolve, delay); });
-      return fetchExitLeadWithRetry(url, payload, true);
+      if (delay !== null) {
+        await new Promise(function (resolve) { setTimeout(resolve, delay); });
+        return fetchExitLeadWithRetry(url, payload, true);
+      }
     }
     return response;
   }
