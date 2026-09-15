@@ -15,8 +15,37 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const htmlFiles = fs.readdirSync(ROOT).filter((f) => f.endsWith('.html'));
-const nginxConf = fs.readFileSync(path.join(ROOT, 'nginx.conf'), 'utf8');
+
+let htmlFiles;
+try {
+  htmlFiles = fs.readdirSync(ROOT).filter((f) => f.endsWith('.html'));
+} catch (err) {
+  console.error(`Could not read site root directory at ${ROOT}: ${err.message}`);
+  process.exit(1);
+}
+if (htmlFiles.length === 0) {
+  console.error(
+    `No .html files found in ${ROOT} — check-assets has nothing to verify; this is a ` +
+    `misconfiguration, not a pass.`
+  );
+  process.exit(1);
+}
+
+const nginxPath = path.join(ROOT, 'nginx.conf');
+if (!fs.existsSync(nginxPath)) {
+  console.error(
+    `nginx.conf not found at ${nginxPath} — check-assets requires it to resolve clean ` +
+    `routes. Run from the repo root (or a fixture dir that includes nginx.conf).`
+  );
+  process.exit(1);
+}
+let nginxConf;
+try {
+  nginxConf = fs.readFileSync(nginxPath, 'utf8');
+} catch (err) {
+  console.error(`Could not read nginx.conf at ${nginxPath}: ${err.message}`);
+  process.exit(1);
+}
 
 // Map clean routes declared in nginx.conf (e.g. "/data-center") to their
 // try_files target (e.g. "/data-center.html").
@@ -31,7 +60,15 @@ const REF_PATTERN = /(?:src|href)="([^"]+)"/g;
 const errors = [];
 
 for (const file of htmlFiles) {
-  const contents = fs.readFileSync(path.join(ROOT, file), 'utf8');
+  let contents;
+  try {
+    contents = fs.readFileSync(path.join(ROOT, file), 'utf8');
+  } catch (err) {
+    // One unreadable file shouldn't hide broken-reference problems in every
+    // other file in the same run — quarantine it and keep going.
+    errors.push(`${file} -> could not be read (${err.message})`);
+    continue;
+  }
   let match;
   while ((match = REF_PATTERN.exec(contents)) !== null) {
     const ref = match[1];

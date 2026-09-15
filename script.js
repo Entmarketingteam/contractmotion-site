@@ -79,6 +79,124 @@
     };
   }
 
+  /* ---- Shared lead-webhook fetch helper (audit + subscribe forms) ----
+     Every lead POST here is a non-idempotent create (one webhook call =
+     one lead/subscriber record downstream in n8n), so on failure we log
+     loudly but retry at most once, and ONLY on 429 (rate-limited — nothing
+     was processed yet, so a retry is safe). Any other non-2xx, a timeout,
+     or a network error gets logged and the caller still proceeds to show
+     the success UI (a lost lead is a real business cost; a transient-blip
+     false "success" screen is the deliberate, acceptable tradeoff — a
+     duplicate submission from retrying a 5xx would be worse). ---- */
+  var LEAD_FETCH_TIMEOUT_MS = 8000;
+  var RETRY_DELAY_MS = 1500;
+  // Ceiling on how long a visitor's submit button may sit disabled waiting
+  // on a 429 retry. n8n Cloud sits behind Cloudflare, whose rate-limit 429s
+  // routinely carry a Retry-After of 60s+ — honoring that verbatim would
+  // leave the button stuck on "Submitting..." for minutes, which is exactly
+  // the kind of visible, broken-looking failure this whole flow exists to
+  // avoid. Anything above the cap is treated as not worth retrying at all.
+  var MAX_RETRY_DELAY_MS = 3000;
+
+  // AbortSignal.timeout is Chrome 103 / Firefox 100 / Safari 16 (all
+  // mid-2022); the rest of this file only requires ~2017-era browsers, so
+  // calling it directly would silently raise the browser floor and, on an
+  // older browser, throw synchronously before any promise exists. Feature-
+  // detect once and omit the signal (no client-side timeout, request still
+  // completes or errors normally) when unavailable.
+  function makeTimeoutSignal(ms) {
+    if (typeof AbortSignal === 'undefined' || typeof AbortSignal.timeout !== 'function') {
+      return undefined;
+    }
+    try {
+      return AbortSignal.timeout(ms);
+    } catch (e) {
+      return undefined;
+    }
+  }
+
+  // Returns the ms to wait before retrying a 429, or null when the server's
+  // Retry-After demands longer than MAX_RETRY_DELAY_MS — callers must treat
+  // null as "do not retry" rather than blocking on a multi-minute wait.
+  function getRetryAfterMs(response) {
+    try {
+      var header = response && response.headers && typeof response.headers.get === 'function'
+        ? response.headers.get('Retry-After')
+        : null;
+      var seconds = header ? Number(header) : NaN;
+      if (!isNaN(seconds) && seconds > 0) {
+        var ms = seconds * 1000;
+        return ms <= MAX_RETRY_DELAY_MS ? ms : null;
+      }
+    } catch (e) {
+      // Malformed/unreadable header — fall back to the default delay below.
+    }
+    return RETRY_DELAY_MS;
+  }
+
+  function postLeadWebhook(url, payload) {
+    try {
+      return fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: makeTimeoutSignal(LEAD_FETCH_TIMEOUT_MS)
+      });
+    } catch (err) {
+      // Guard the documented never-rejects-synchronously contract below —
+      // any synchronous throw (e.g. an unsupported option) becomes a normal
+      // rejection instead of escaping the caller before a promise exists.
+      return Promise.reject(err);
+    }
+  }
+
+  // Resolves once the lead has either succeeded, or failed and been logged —
+  // it never rejects, so callers can always chain straight into their
+  // success UI without their own try/catch.
+  function submitLeadWithLogging(url, payload, tag, isRetry) {
+    return postLeadWebhook(url, payload).then(
+      function (response) {
+        if (response.ok) return;
+        if (response.status === 429 && !isRetry) {
+          var delay = getRetryAfterMs(response);
+          if (delay !== null) {
+            return new Promise(function (resolve) { setTimeout(resolve, delay); })
+              .then(function () { return submitLeadWithLogging(url, payload, tag, true); });
+          }
+        }
+        return response.text().catch(function () { return '(could not read response body)'; })
+          .then(function (bodyText) {
+            console.error('[' + tag + '] webhook returned', response.status, bodyText);
+          });
+      },
+      function (err) {
+        console.error('[' + tag + '] request failed', err);
+      }
+    );
+  }
+
+  // Exit-popup variant: same timeout + 429-only-retry policy as
+  // submitLeadWithLogging, but this call site needs the real Response (or a
+  // thrown/rejected error) back so it can pick between the success block and
+  // the mailto fallback — so this one resolves/rejects normally instead of
+  // swallowing failures itself.
+  async function fetchExitLeadWithRetry(url, payload, isRetry) {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: makeTimeoutSignal(LEAD_FETCH_TIMEOUT_MS)
+    });
+    if (response.status === 429 && !isRetry) {
+      const delay = getRetryAfterMs(response);
+      if (delay !== null) {
+        await new Promise(function (resolve) { setTimeout(resolve, delay); });
+        return fetchExitLeadWithRetry(url, payload, true);
+      }
+    }
+    return response;
+  }
+
   /* ---- Signal Audit form ---- */
   const auditForm = document.getElementById('auditForm');
   const formSuccess = document.getElementById('formSuccess');
@@ -119,15 +237,15 @@
 
       const payload = Object.assign({ company, email, role, region, revenue }, leadMeta());
 
-      fetch('https://entagency.app.n8n.cloud/webhook/contractmotion-signal-audit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      })
-        .catch(function () {
-          // Network error — still show success (submission logged server-side)
-          return { ok: true };
-        })
+      submitLeadWithLogging(
+        'https://entagency.app.n8n.cloud/webhook/contractmotion-signal-audit',
+        payload,
+        'audit-form',
+        false
+      )
+        // Still show success on failure (submission failure is logged above,
+        // server-side is the source of truth) — we deliberately don't scare
+        // away a real lead over a transient blip.
         .then(function () {
           auditForm.style.display = 'none';
           if (ctaNote) ctaNote.style.display = 'none';
@@ -158,18 +276,83 @@
       btn.disabled = true;
       btn.textContent = 'Subscribing...';
 
-      fetch('https://entagency.app.n8n.cloud/webhook/contractmotion-subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.assign({ email }, leadMeta()))
-      })
-        .catch(function () {
-          return { ok: true };
-        })
+      submitLeadWithLogging(
+        'https://entagency.app.n8n.cloud/webhook/contractmotion-subscribe',
+        Object.assign({ email }, leadMeta()),
+        'subscribe-form',
+        false
+      )
         .then(function () {
           subscribeForm.style.display = 'none';
           if (subNote) subNote.style.display = 'none';
           subSuccess.style.display = 'flex';
+        });
+    });
+  }
+
+  /* ---- Healthcare referral-intake form (healthcare.html) ----
+     healthcare.html ships its own inline <script> block, after this file's
+     <script src="script.js"> tag, that registers a SECOND submit listener
+     on #healthcareForm using the exact buggy pattern this file was hardened
+     against: `fetch(...).catch(() => ({ok:true})).then(() => showSuccess())`
+     — no response.ok check, no logging, no timeout, so any non-2xx (or a
+     down webhook) silently drops the lead. That inline block is HTML, not
+     JS, and out of scope for this pass — this file is loaded first (classic
+     scripts run in document order) and registers first, so on submit this
+     listener fires first; calling stopImmediatePropagation() here stops the
+     inline listener (already registered on the same element by page-load
+     time) from ever running, so the legacy fetch never fires and the lead
+     only goes out once, through the shared, error-checked helper. */
+  const healthcareForm = document.getElementById('healthcareForm');
+  const hcSuccess = document.getElementById('hcFormSuccess');
+  const hcError = document.getElementById('hcFormError');
+
+  if (healthcareForm) {
+    healthcareForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      if (hcError) hcError.textContent = '';
+
+      const val = function (sel) {
+        const el = healthcareForm.querySelector(sel);
+        return el ? el.value.trim() : '';
+      };
+      const practice = val('#hc-practice');
+      const email = val('#hc-email');
+      const typeEl = healthcareForm.querySelector('#hc-type');
+      const type = typeEl ? typeEl.value : '';
+      const stateEl = healthcareForm.querySelector('#hc-state');
+      const state = stateEl ? stateEl.value : '';
+      const challenge = val('#hc-challenge');
+
+      if (!practice) { if (hcError) hcError.textContent = 'Practice name is required.'; return; }
+      if (!email || !isValidEmail(email)) { if (hcError) hcError.textContent = 'A valid email is required.'; return; }
+      if (!type) { if (hcError) hcError.textContent = 'Please select your practice type.'; return; }
+      if (!state) { if (hcError) hcError.textContent = 'Please select your state.'; return; }
+
+      const btn = healthcareForm.querySelector('button[type="submit"]');
+      if (btn) { btn.disabled = true; btn.textContent = 'Submitting…'; }
+
+      const payload = Object.assign(
+        { practice, email, type, state, challenge, source: 'healthcare.contractmotion.com' },
+        leadMeta()
+      );
+
+      submitLeadWithLogging(
+        'https://entagency.app.n8n.cloud/webhook/healthcare-referral-intake',
+        payload,
+        'healthcare-form',
+        false
+      )
+        // Same deliberate tradeoff as the audit/subscribe forms: still show
+        // success on failure (it's logged above) rather than scare away a
+        // real lead over a transient blip.
+        .then(function () {
+          healthcareForm.style.display = 'none';
+          if (hcSuccess) {
+            hcSuccess.style.display = 'block';
+            hcSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
         });
     });
   }
@@ -339,12 +522,16 @@
       }, leadMeta());
 
       try {
-        const r = await fetch('https://entagency.app.n8n.cloud/webhook/cm-direct-response-lead', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        if (!r.ok) throw new Error();
+        const r = await fetchExitLeadWithRetry(
+          'https://entagency.app.n8n.cloud/webhook/cm-direct-response-lead',
+          payload,
+          false
+        );
+        if (!r.ok) {
+          const bodyText = await r.text().catch(function () { return '(could not read response body)'; });
+          console.error('[exit-popup] webhook failed', r.status, bodyText);
+          throw new Error('webhook returned ' + r.status);
+        }
 
         document.getElementById('exit-popup-content').innerHTML = `
           <div class="exit-success-block">
@@ -356,6 +543,7 @@
         localStorage.setItem('cm_exit_popup_closed', 'true');
         setTimeout(closePopup, 3000);
       } catch (err) {
+        console.error('[exit-popup] network error', err);
         // Mailto fallback
         const subject = encodeURIComponent('Start My Free Campaign');
         const body = encodeURIComponent('Hey Ethan,\n\nI want to start my free campaign! No setup fees, no contracts, no risk. I\'m a commercial operator in ' + metro + ' (' + email + '). Let\'s build and launch our outbound campaigns for free.\n\nTalk soon!');
